@@ -1,0 +1,65 @@
+print      (
+print  print		print
+
+print							print
+		print		print
+
+print     print (
+		
+
+print
+print
+ print
+		print
+												             print
+												            print
+      print	
+										printdsd
+					dfsfprint
+								chsjkprintlsjdfs 
+
+		print(
+				print    (	
+										
+
+Поиск данных в файле – это очень общий шаблон чтения через файл, игнорируя большинство строк и обрабатывая строки, которые соответствуют определенному критерию. К примеру, если нужно вывести на экран строки, которые начинаются с префикса «From:», можно воспользоваться строковым методом startswith, выбрав строки с желаемым префиксом.
+>>> fhand = open('mbox-short.txt')
+>>> for line in fhand:
+		if line.startswith('From:') :
+			print(line)
+Программа выполняется, получаем следующий результат:
+From: stephen.marquard@uct.ac.za
+
+From: louis@media.berkeley.edu
+
+From: zqian@umich.edu
+
+...
+Пустые строки – результат невидимости символа новой строки. Каждая строка оканчивается новой строкой, т.к. функция print печатает строку из переменной line, которая включает новую строку и затем функция print добавляет другую новую строку, в итоге наблюдается эффект двойного пробела. Удалить его можно методом rstrip:
+>>> for line in fhand:
+         line = line.rstrip()
+         if line.startswith('From:'):
+			print(line)
+Инструкция continue позволяет пропускать «ненужные строки»: 
+>>>for line in fhand:
+		line = line.rstrip()
+        if not line.startswith('From:'):
+			continue
+		print(line)
+Также можно использовать строковый метод find, который ищет вхождения строки в другой строке и либо возвращает позицию строки или -1, если строка не найдена:
+>>> fhand = open('mbox-short.txt')
+>>> for line in fhand:
+          line = line.rstrip()
+          if line.find('@uct.ac.za') == -1 :
+			continue
+          print(line)
+Получили следующий результат:
+From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008
+X-Authentication-Warning: nakamura.uits.iupui.edu: apache set sender to 
+stephen.marquard@uct.ac.za using -f
+From: stephen.marquard@uct.ac.za
+Author: stephen.marquard@uct.ac.za
+From david.horwitz@uct.ac.za Fri Jan 4 07:02:32 2008
+X-Authentication-Warning: nakamura.uits.iupui.edu: apache set sender to 
+david.horwitz@uct.ac.za using -f
+...

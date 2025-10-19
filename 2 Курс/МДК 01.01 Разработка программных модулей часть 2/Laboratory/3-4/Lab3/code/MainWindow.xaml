@@ -1,0 +1,113 @@
+﻿<Window x:Class="code.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:code"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Background="White" BorderBrush="Navy" BorderThickness="1" Grid.Row="0">
+            <MenuItem Header="_Файл">
+                <MenuItem Header="_Закрыть"  
+                    ToolTip="Закрыть приложение"
+                    InputGestureText="Alt+F4"
+                    MouseLeave="MenuItem_MouseLeave" 
+                    MouseEnter="MenuItem_MouseEnter" 
+                    Click="MenuItem_Click"
+                    Tag="Закрытие приложения"/>
+            </MenuItem>
+
+            <MenuItem Header="_Цвет фона"
+                      MouseLeave="MenuItem_MouseLeave" MouseEnter="MenuItem_MouseEnter" Tag="Изменение цвета фона">
+                <MenuItem Header="_Красный" Click="ChangeBackgroundColor" 
+                          Tag="Red" ToolTip="Изменить цвет фона на красный"/>
+                <MenuItem Header="_Зеленый" Click="ChangeBackgroundColor" 
+                          Tag="Green" ToolTip="Изменить цвет фона на зеленый"/>
+                <MenuItem Header="_Синий" Click="ChangeBackgroundColor" 
+                          Tag="Blue" ToolTip="Изменить цвет фона на синий"/>
+                <Separator/>
+                <MenuItem Header="_Сброс" Click="ChangeBackgroundColor" 
+                          Tag="White" ToolTip="Вернуть белый цвет фона"/>
+            </MenuItem>
+            <MenuItem Header="_О программе"
+                      ToolTip="О программе" 
+                      Click="MenuItem_Click" 
+                      MouseLeave="MenuItem_MouseLeave" 
+                      MouseEnter="MenuItem_MouseEnter" 
+                      Tag="О программе"/>
+        </Menu>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <ToolBar>
+                <Button Content="Закрыть"
+                        Tag="Закрытие приложения"
+                        ToolTip="Закрыть приложение"
+                        MouseLeave="MenuItem_MouseLeave" 
+                        MouseEnter="MenuItem_MouseEnter" 
+                        Click="MenuItem_Click"/>
+                <Button Content="О программе"
+                        Click="MenuItem_Click" 
+                        ToolTip="О программе"
+                        MouseLeave="MenuItem_MouseLeave" 
+                        MouseEnter="MenuItem_MouseEnter" 
+                        Tag="О программе"/>
+
+                <Label Content="Цвет фона:" VerticalAlignment="Center"/>
+                <ComboBox SelectedValuePath="Tag" SelectionChanged="ColorChanged">
+                    <ComboBoxItem Tag="White">Белый</ComboBoxItem>
+                    <ComboBoxItem Tag="Red">Красный</ComboBoxItem>
+                    <ComboBoxItem Tag="Green">Зеленый</ComboBoxItem>
+                    <ComboBoxItem Tag="Blue">Синий</ComboBoxItem>
+                    <ComboBoxItem Tag="Yellow">Желтый</ComboBoxItem>
+                </ComboBox>
+            </ToolBar>
+        </StackPanel>
+
+        <!-- Toolbar для редактирования кисти -->
+        <ToolBar Grid.Row="2">
+            <Label Content="Цвет кисти:"/>
+            <ComboBox x:Name="BrushColorComboBox" Width="100" SelectedIndex="0">
+                <ComboBoxItem Tag="Red">Красный</ComboBoxItem>
+                <ComboBoxItem Tag="Blue">Синий</ComboBoxItem>
+                <ComboBoxItem Tag="Green">Зеленый</ComboBoxItem>
+                <ComboBoxItem Tag="Black">Черный</ComboBoxItem>
+                <ComboBoxItem Tag="Yellow">Желтый</ComboBoxItem>
+            </ComboBox>
+
+            <Label Content="Размер кисти:" Margin="10,0,0,0"/>
+            <Slider x:Name="BrushSizeSlider" Width="100" Minimum="1" Maximum="50" Value="5" 
+                    ValueChanged="BrushSizeSlider_ValueChanged"/>
+            <TextBox x:Name="BrushSizeTextBox" Width="30" Text="{Binding Value, ElementName=BrushSizeSlider, 
+                    UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+
+            <RadioButton x:Name="DrawRadioButton" Content="Рисование" GroupName="InkMode" 
+                         IsChecked="True" Checked="ModeRadioButton_Checked" Margin="10,0,0,0"/>
+            <RadioButton x:Name="EditRadioButton" Content="Редактирование" GroupName="InkMode" 
+                         Checked="ModeRadioButton_Checked"/>
+            <RadioButton x:Name="EraseRadioButton" Content="Удаление" GroupName="InkMode" 
+                         Checked="ModeRadioButton_Checked"/>
+        </ToolBar>
+
+        <InkCanvas Grid.Row="3" x:Name="InkCanvas">
+            <InkCanvas.DefaultDrawingAttributes>
+                <DrawingAttributes Color="Red" Height="5" Width="5"/>
+            </InkCanvas.DefaultDrawingAttributes>
+        </InkCanvas>
+
+        <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Grid.Row="4">
+            <TextBlock x:Name="StatusBarLeft" Text="" />
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="StatusBarRight" Text="" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
