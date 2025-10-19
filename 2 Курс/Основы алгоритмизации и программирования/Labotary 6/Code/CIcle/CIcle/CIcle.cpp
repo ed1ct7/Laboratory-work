@@ -1,0 +1,80 @@
+//Магическим квадратом порядка n называется квадратная матрица N * N,
+//составленная из чисел так, что суммы по каждому столбцу, каждой строке и каждой
+//диагонали равны между собой.
+//Определить является ли введенная матрица N * N магическим квадратом.
+//Пример:   6   1   8
+//          7   5   3
+//          2   9   4
+
+#include <iostream>
+#include <stdio.h>
+#include <iomanip>
+using namespace std;
+
+int main()
+{
+    int sum = 0;
+    int tsum[] = { 0,0,0,0 };
+    bool tbool = false;
+    setlocale(LC_ALL, "ru");
+    int n;
+    cout << "Введите количество порядок квадратной матрицы:\t";
+    cin >> n;
+    while (n <= 0) {
+        cout << "некоректный ввод количества элементов в массиве.\nповторите попытку ввода" << endl << endl;
+        cout << "введите количество элементов в массиве:\t";
+        cin >> n;
+    }
+    cout << endl;
+
+    int arr[100][100];
+
+    for (size_t i = 0; i < n; i++)
+    {
+        cout << "Строка " << i+1 << endl;
+        for (size_t j = 0; j < n; j++)
+        {
+            cout << "Столбец " << j+1 << ": \t";
+            cin >> arr[i][j];
+        }
+        cout << endl;
+    }
+    
+    cout << endl;
+
+    for (size_t i = 0; i < n; i++)
+    {
+        for (size_t j = 0; j < n; j++)
+        {
+            cout << arr[i][j] << " ";
+            tsum[0] += arr[i][j];
+            tsum[1] += arr[j][i];
+        }
+
+        if (i == 0)
+        {
+            sum += tsum[0];
+        }
+
+        if (tsum[0] != sum || tsum[1] != sum) {
+            tbool = true;
+        }
+
+        tsum[0] = 0;
+        tsum[1] = 0;
+        tsum[2] += arr[i][i];
+        tsum[3] += arr[n - i - 1][i];
+        cout << endl;
+    }
+
+    cout << endl;
+    if (tbool == true || tsum[2] != sum || tsum[3] != sum)
+    {
+        cout << "Матрица не магическая" << endl;
+    }
+    else {
+        cout << "Магическая матрица" << endl;
+    }
+
+    return 0;
+}

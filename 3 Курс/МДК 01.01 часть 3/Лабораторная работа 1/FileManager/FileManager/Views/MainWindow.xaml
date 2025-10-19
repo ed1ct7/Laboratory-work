@@ -1,0 +1,97 @@
+﻿<Window x:Class="FileManager.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileManager.Views"
+        xmlns:vm="clr-namespace:FileManager.ViewModels"
+        xmlns:models="clr-namespace:FileManager.Models"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="900"
+        ResizeMode="NoResize">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <HierarchicalDataTemplate DataType="{x:Type models:File}" 
+                                  ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="pack://application:,,,/Resources/Images/file.png" Width="16" Height="16" Margin="0,0,5,0"/>
+                <TextBlock Text="{Binding Name}"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type models:Directory}" 
+                                  ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="pack://application:,,,/Resources/Images/folder.png" Width="16" Height="16" Margin="0,0,5,0"/>
+                <TextBlock Text="{Binding Name}"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type models:Drive}" 
+                                  ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="pack://application:,,,/Resources/Images/drive.png" Width="16" Height="16" Margin="0,0,5,0"/>
+                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Text="{Binding SpaceLeft, StringFormat=' ({0} free)'}" 
+                           Foreground="Gray" FontStyle="Italic"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TreeView Grid.Column="0"
+                  Background="DarkSlateGray"
+                ItemsSource="{Binding RootItems}"
+                SelectedItemChanged="TreeView_SelectedItemChanged">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="Margin" Value="0,5,0,0"></Setter>
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                    <EventSetter Event="Expanded" Handler="TreeViewItem_Expanded"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="TreeViewItem_MouseDoubleClick"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Height="auto" Text="Информация" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" 
+                       Text="{Binding SelectedDriveInfo}" 
+                       TextWrapping="Wrap"
+                       FontSize="13"
+                       Padding="10"
+                       />
+            <TextBlock Grid.Row="1" Grid.Column="1" 
+                       Text="{Binding SelectedDirectoryInfo}" 
+                       TextWrapping="Wrap"
+                       FontSize="13"
+                       Padding="10"
+                       />
+            <TextBlock Grid.Row="2" Grid.ColumnSpan="2" 
+                       Text="{Binding SelectedFilePreviewText}" 
+                       TextWrapping="Wrap"
+                       FontSize="13"
+                       Padding="10"
+                       />
+        </Grid>
+    </Grid>
+</Window>
