@@ -101,3 +101,125 @@ ENV/
 *.tmp
 *.temp
 .cache/
+### Visual Studio / .NET ###
+## User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio
+.vs/
+.vscode/
+
+## .NET Core
+.net8.0/
+.net7.0/
+.net6.0/
+.net5.0/
+core/
+.nuget/
+packages/
+
+## Build cache and temporary files
+*.cache
+*.temp
+*.tmp
+*.tlog
+*.lastbuildstate
+*.csproj.*.cache
+*.csproj.assemblyreference.cache
+*.csproj.corecompileinputs.cache
+*.csproj.filelistabsolute.txt
+*.csproj.generateresources.cache
+*.csproj.BuildWithSkipAnalyzers
+*.genruntimeconfig.cache
+*.assets.cache
+*.AssemblyInfo.cs
+*.AssemblyInfoInputs.cache
+
+## MSTest test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## NuGet
+[Nn]u[Gg]et/
+*.nupkg
+**/packages/*
+
+### PyCharm ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+*.code-workspace
+
+### OS ###
+# Windows
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+
+### Python ###
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+pip-log.txt
+
+### Build ###
+build/
+dist/
+*.egg-info/
+
+### Database ###
+*.db
+*.sqlite3
+
+### Logs ###
+*.log
+logs/
+
+### Environments ###
+.env
+.venv
+env/
+venv/
+ENV/
+
+### Miscellaneous ###
+*.bak
+.cache/
