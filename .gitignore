@@ -1,0 +1,103 @@
+﻿### IDE ###
+# PyCharm
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Eclipse
+.settings/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# NetBeans
+nbproject/
+build/
+
+
+### OS ###
+# Windows
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+
+
+### Languages ###
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+pip-log.txt
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# C/C++
+*.o
+*.obj
+*.exe
+*.dll
+
+
+### Build ###
+build/
+dist/
+*.egg-info/
+
+
+### Database ###
+*.db
+*.sqlite3
+
+
+### Logs ###
+*.log
+logs/
+
+
+### Environments ###
+.env
+.venv
+env/
+venv/
+ENV/
+
+
+### Miscellaneous ###
+*.bak
+*.tmp
+*.temp
+.cache/
