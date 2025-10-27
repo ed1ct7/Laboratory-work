@@ -36,7 +36,7 @@ namespace Triangle_and_Matrix_classes.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public static readonly ObservableCollection<string> Operations
+        public static ObservableCollection<string> Operations
             = new ObservableCollection<string>
             {
                 "+", "-", "*", "compare"
@@ -123,6 +123,23 @@ namespace Triangle_and_Matrix_classes.Models
             return result;
         }
 
+        public Matrix Summation(double other)
+        {
+            var result = new Matrix();
+            result.Size = Size;
+            result.MatrixElements = new ObservableCollection<MatrixElement>();
+
+            for (int i = 0; i < Size * Size; i++)
+            {
+                result.MatrixElements.Add(new MatrixElement
+                {
+                    Value = this.MatrixElements[i].Value + other
+                });
+            }
+
+            return result;
+        }
+
         // Вычитание матриц
         public Matrix Subtraction(Matrix other)
         {
@@ -138,6 +155,23 @@ namespace Triangle_and_Matrix_classes.Models
                 result.MatrixElements.Add(new MatrixElement
                 {
                     Value = this.MatrixElements[i].Value - other.MatrixElements[i].Value
+                });
+            }
+
+            return result;
+        }
+
+        public Matrix Subtraction(double other)
+        {
+            var result = new Matrix();
+            result.Size = Size;
+            result.MatrixElements = new ObservableCollection<MatrixElement>();
+
+            for (int i = 0; i < Size * Size; i++)
+            {
+                result.MatrixElements.Add(new MatrixElement
+                {
+                    Value = this.MatrixElements[i].Value - other
                 });
             }
 
@@ -317,6 +351,11 @@ namespace Triangle_and_Matrix_classes.Models
         {
             if (other == null) throw new Exception("Нельзя сравнить объекты");
             return Volume().CompareTo(other.Volume());
+        }
+
+        internal object Summation(object v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

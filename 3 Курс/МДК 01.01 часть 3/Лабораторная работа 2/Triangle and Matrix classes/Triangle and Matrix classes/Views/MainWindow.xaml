@@ -81,9 +81,15 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
+                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
-                               <!--Первая матрица-->
-                                <ItemsControl Grid.Row="0" ItemsSource="{Binding MatrixF.MatrixElements, Mode=TwoWay}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!--Первая матрица-->
+                                <ItemsControl Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding MatrixF.MatrixElements, Mode=TwoWay}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="{Binding Size}" Rows="{Binding Size}"/>
@@ -100,10 +106,18 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
 
-                                <ListBox Grid.Row="1" ItemsSource="{Binding Operations}" SelectedItem="{Binding SelectedItem}"></ListBox>
-                                
+                                <ListBox Grid.Row="2" Grid.ColumnSpan="1"
+                                         ItemsSource="{Binding Operations}" 
+                                         SelectedItem="{Binding SelectedItem}"
+                                         ></ListBox>
+
+                                <CheckBox Grid.Row="2" Grid.Column="1"
+                                          Command="{Binding IsOpWithMatrixCommand}"
+                                          IsChecked="{Binding OpWithMatrix, Mode=TwoWay}"
+                                          ></CheckBox>
+
                                 <!--Вторая матрица-->
-                                <ItemsControl Grid.Row="2" ItemsSource="{Binding MatrixS.MatrixElements, Mode=TwoWay}">
+                                <ItemsControl Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding MatrixS.MatrixElements, Mode=TwoWay}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="{Binding Size}" Rows="{Binding Size}"/>
@@ -118,19 +132,43 @@
                                                 HorizontalContentAlignment="Center"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
+                                    <ItemsControl.Style>
+                                        <Style TargetType="ItemsControl">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding OpWithMatrix}" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ItemsControl.Style>
                                 </ItemsControl>
-                                
-                                <Button Grid.Row="3" 
+
+                                <TextBox Grid.Row="3" Text="{Binding SingleValue, Mode=TwoWay}">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding OpWithMatrix}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+
+                                <Button Grid.Row="4" Grid.ColumnSpan="2"
                                      Content="Вычислить" 
                                      Command="{Binding CalculateCommand}"
                                      Margin="0,10" Height="30"/>
 
                                 <!--Результирующая матрица-->
-                                <ItemsControl Grid.Row="4" 
-                                              ItemsSource="{Binding MatrixR.MatrixElements, Mode=TwoWay}">
+                                <ItemsControl Grid.Row="5" Grid.ColumnSpan="2"
+                                              
+                                              ItemsSource="{Binding MatrixR.MatrixElements}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <UniformGrid Columns="{Binding Size}" Rows="{Binding Size}"/>
+                                            <UniformGrid IsEnabled="False" Columns="{Binding Size}" Rows="{Binding Size}"/>
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
@@ -146,21 +184,27 @@
                                         <Style TargetType="ItemsControl">
                                             <Setter Property="Visibility" Value="Visible"></Setter>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding isCompare}"
-                                                             Value="True"
-                                                             >
-                                                    <Setter Property="Visibility" 
-                                                            Value="Collapsed"></Setter>
+                                                <DataTrigger Binding="{Binding IsCompare}" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </ItemsControl.Style>
                                 </ItemsControl>
-                                <TextBlock ></TextBlock>
+                                <TextBlock Grid.Row="5" Text="{Binding Result}" Margin="0,10">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsCompare}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Grid>
                         </Border>
-
-                        <TextBlock Grid.Row="3" Text="{Binding Result}" Margin="0,10"/>
                     </Grid>
                 </DataTemplate>
 
