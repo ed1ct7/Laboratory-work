@@ -1,0 +1,30 @@
+﻿<Window x:Class="ORM_databasefirst.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ORM_databasefirst"
+        xmlns:vm="clr-namespace:ORM_databasefirst.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="Auth"></DataGrid>
+        
+        <TextBox x:Name="IdAuth"></TextBox>
+        <TextBox x:Name="NameAuth"></TextBox>
+        <TextBox x:Name="AgeAuth"></TextBox>
+        <TextBox x:Name="BooksAuth"></TextBox>
+        
+        <Button Click="AuthBut_Click" x:Name="AuthBut"></Button>
+
+        <DataGrid x:Name="Book"></DataGrid>
+
+        <TextBox x:Name="IdBook"></TextBox>
+        <TextBox x:Name="TitleBook"></TextBox>
+        <TextBox x:Name="CountPageBook"></TextBox>
+        <TextBox x:Name="PriceBook"></TextBox>
+        <TextBox x:Name="AuthsBook"></TextBox>
+
+        <Button Click="BookBut_Click" x:Name="BookBut"></Button>
+    </Grid>
+</Window>
