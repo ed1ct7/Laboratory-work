@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Triangle_and_Matrix_classes.Interfaces
 {
@@ -14,5 +15,9 @@ namespace Triangle_and_Matrix_classes.Interfaces
     {
         void GetPerimeter();
         void GetArea();
+    }
+    public interface IViewModelBase
+    {
+        public void Calculate(object parameter);
     }
 }

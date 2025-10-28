@@ -3,18 +3,19 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Triangle_and_Matrix_classes.Interfaces;
 using Triangle_and_Matrix_classes.Models;
-using Triangle_and_Matrix_classes.ViewModels.Commands;
+using Triangle_and_Matrix_classes.ViewModel.Commands;
 
 namespace Triangle_and_Matrix_classes.ViewModel
 {
-    public class MatrixViewModel : INotifyPropertyChanged
+    public class MatrixViewModel : INotifyPropertyChanged, IViewModelBase
     {
         public MatrixViewModel()
         {
-            MatrixF = new Matrix();
-            MatrixS = new Matrix();
-            MatrixR = new Matrix();
+            MatrixF = new Models.Matrix();
+            MatrixS = new Models.Matrix();
+            MatrixR = new Models.Matrix();
             OnResize();
             CalculateCommand = new RelayCommand(Calculate);
             IsOpWithMatrixCommand = new RelayCommand(IsOpWithMatrix);
@@ -26,11 +27,11 @@ namespace Triangle_and_Matrix_classes.ViewModel
         private void IsOpWithMatrix(object parameter)
         {
             if (OpWithMatrix == true)
-            { 
-                Matrix.Operations.Remove("compare"); 
+            {
+                Models.Matrix.Operations.Remove("compare"); 
             }
             else {
-                Matrix.Operations.Add("compare");
+                Models.Matrix.Operations.Add("compare");
             }
         }
 
@@ -45,7 +46,7 @@ namespace Triangle_and_Matrix_classes.ViewModel
         }
 
 
-        private void Calculate(object parameter)
+        public void Calculate(object parameter)
         {
             dynamic value = OpWithMatrix ? (dynamic)SingleValue : MatrixS;
             switch (SelectedItem)
@@ -101,7 +102,7 @@ namespace Triangle_and_Matrix_classes.ViewModel
 
         public ObservableCollection<string> Operations
         {
-            get { return Matrix.Operations; }
+            get { return Models.Matrix.Operations; }
         }
 
         private string _selectedItem;
@@ -116,8 +117,8 @@ namespace Triangle_and_Matrix_classes.ViewModel
             }
         }
 
-        private Matrix _matrixF;
-        public Matrix MatrixF
+        private Models.Matrix _matrixF;
+        public Models.Matrix MatrixF
         {
             get => _matrixF;
             set
@@ -127,8 +128,8 @@ namespace Triangle_and_Matrix_classes.ViewModel
             }
         }
 
-        private Matrix _matrixS;
-        public Matrix MatrixS
+        private Models.Matrix _matrixS;
+        public Models.Matrix MatrixS
         {
             get => _matrixS;
             set
@@ -138,8 +139,8 @@ namespace Triangle_and_Matrix_classes.ViewModel
             }
         }
 
-        private Matrix _matrixR;
-        public Matrix MatrixR
+        private Models.Matrix _matrixR;
+        public Models.Matrix MatrixR
         {
             get => _matrixR;
             set
@@ -197,5 +198,6 @@ namespace Triangle_and_Matrix_classes.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

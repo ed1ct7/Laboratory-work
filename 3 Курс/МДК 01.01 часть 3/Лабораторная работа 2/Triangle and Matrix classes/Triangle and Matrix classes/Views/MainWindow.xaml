@@ -40,13 +40,13 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Text="Сторона A:" Margin="0,5"/>
-                        <TextBox Grid.Row="1" Text="{Binding Sides.A}" Margin="0,5"/>
+                        <TextBox Grid.Row="1" Text="{Binding SideA, StringFormat=F2}" Margin="0,5"/>
 
                         <TextBlock Grid.Row="2" Text="Сторона B:" Margin="0,5"/>
-                        <TextBox Grid.Row="3" Text="{Binding Sides.B}" Margin="0,5"/>
+                        <TextBox Grid.Row="3" Text="{Binding SideB, StringFormat=F2}" Margin="0,5"/>
 
                         <TextBlock Grid.Row="4" Text="Сторона C:" Margin="0,5"/>
-                        <TextBox Grid.Row="5" Text="{Binding Sides.C}" Margin="0,5"/>
+                        <TextBox Grid.Row="5" Text="{Binding SideC, StringFormat=F2}" Margin="0,5"/>
 
                         <Button Grid.Row="6" 
                                 Content="Вычислить" 
@@ -114,6 +114,7 @@
                                 <CheckBox Grid.Row="2" Grid.Column="1"
                                           Command="{Binding IsOpWithMatrixCommand}"
                                           IsChecked="{Binding OpWithMatrix, Mode=TwoWay}"
+                                          Content="На число?"
                                           ></CheckBox>
 
                                 <!--Вторая матрица-->
