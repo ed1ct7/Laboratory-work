@@ -40,11 +40,11 @@ namespace ORM_databasefirst.ViewModels
             set { _price = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<Auths> _auths;
-        public ObservableCollection<Auths> Auths
-        {
-            get { return _auths; }
-            set { _auths = value; OnPropertyChanged(); }
-        }
+        //private ObservableCollection<Auths> _auths;
+        //public ObservableCollection<Auths> Auths
+        //{
+        //    get { return _auths; }
+        //    set { _auths = value; OnPropertyChanged(); }
+        //}
     }
 }

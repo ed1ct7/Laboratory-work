@@ -18,9 +18,9 @@ namespace ORM_databasefirst.ViewModels
         }
         public void Load(object Entity)
         {
-            var db = ApplicationContext.GetContext();
-            db.Database.EnsureCreated();
-            InsertCommand = new RelayCommand(Insert);
+            //var db = ApplicationContext.GetContext();
+            //db.Database.EnsureCreated();
+            //InsertCommand = new RelayCommand(Insert);
         }
         private ICommand InsertCommand { get; set; }
         private void Insert(object parametr) { 

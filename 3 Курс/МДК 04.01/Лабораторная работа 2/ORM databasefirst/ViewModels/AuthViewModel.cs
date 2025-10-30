@@ -37,11 +37,11 @@ namespace ORM_databasefirst.ViewModels
             set { _age = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<Books> _books;
-        public ObservableCollection<Books> Books
-        {
-            get { return _books; }
-            set { _books = value; OnPropertyChanged(); }
-        }
+        //private ObservableCollection<Books> _books;
+        //public ObservableCollection<Books> Books
+        //{
+        //    get { return _books; }
+        //    set { _books = value; OnPropertyChanged(); }
+        //}
     }
 }

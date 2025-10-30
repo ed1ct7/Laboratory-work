@@ -11,7 +11,7 @@ public partial class AuthBooks
 
     public int BookId { get; set; }
 
-    public virtual Auths Auth { get; set; } = null!;
+    //public virtual Auths Auth { get; set; } = null!;
 
-    public virtual Books Book { get; set; } = null!;
+    //public virtual Books Book { get; set; } = null!;
 }
