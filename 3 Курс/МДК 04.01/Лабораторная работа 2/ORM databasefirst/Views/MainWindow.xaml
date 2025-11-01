@@ -13,23 +13,6 @@
     </Window.DataContext>
     
     <Grid>
-        <DataGrid x:Name="Auth"></DataGrid>
-        
-        <TextBox x:Name="IdAuth"></TextBox>
-        <TextBox x:Name="NameAuth"></TextBox>
-        <TextBox x:Name="AgeAuth"></TextBox>
-        <TextBox x:Name="BooksAuth"></TextBox>
-        
-        <Button x:Name="AuthBut"></Button>
-
-        <DataGrid x:Name="Book"></DataGrid>
-
-        <TextBox x:Name="IdBook"></TextBox>
-        <TextBox x:Name="TitleBook"></TextBox>
-        <TextBox x:Name="CountPageBook"></TextBox>
-        <TextBox x:Name="PriceBook"></TextBox>
-        <TextBox x:Name="AuthsBook"></TextBox>
-
-        <Button x:Name="BookBut"></Button>
+        <Frame x:Name="AuthBookView" Source="AuthBookView.xaml"/>
     </Grid>
 </Window>

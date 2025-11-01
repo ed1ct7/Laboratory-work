@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ORM_databasefirst.Models;
 
-public partial class Book
+public partial class Book_
 {
     public int Id { get; set; }
 
@@ -12,6 +12,4 @@ public partial class Book
     public int CountPage { get; set; }
 
     public double? Price { get; set; }
-
-    public virtual ICollection<Auth> Auths { get; set; } = new List<Auth>();
 }
