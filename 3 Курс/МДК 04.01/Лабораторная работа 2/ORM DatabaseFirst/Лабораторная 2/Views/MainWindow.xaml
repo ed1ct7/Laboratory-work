@@ -6,16 +6,18 @@
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="600">
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="150"/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Margin="10" >
+        <Frame Grid.Row="0" Source="Pages/AuthView.xaml"></Frame>
+        <Frame Grid.Row="1" Source="Pages/BookView.xaml"></Frame>
+        <Frame Grid.Row="2" Source="Pages/AuthBookView.xaml"></Frame>
+        
+        <!--<StackPanel Margin="10" >
             <TextBlock Text="Авторы книг" FontSize="16"/>
             <DataGrid x:Name="AuthAndBooksData"/>
         </StackPanel>
@@ -33,6 +35,6 @@
             <TextBlock Text="Id автора"/>
             <TextBox x:Name="AuthIdTB" Width="50" HorizontalAlignment="Left" Margin="5"/>
             <Button Content="Добавить" Click="Button_Click" Width="100" HorizontalAlignment="Left"/>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </Window>
