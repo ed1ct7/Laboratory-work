@@ -11,7 +11,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" ItemsSource="{Binding AuthAndBookData}" Height="100"></DataGrid>
+        <DataGrid Grid.Row="0" ItemsSource="{Binding AuthAndBookData}" Height="auto"></DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock Text="Id автора"/>
             <TextBox Text="{Binding AuthId}" Width="75"/>

@@ -21,7 +21,7 @@ namespace ORM_DatabaseFirest.ViewModels
         public void Load()
         {
             var db = TestContext.GetContext();
-            BooksData = new ObservableCollection<Auth>(db.Auths.ToList());
+            BooksData = new ObservableCollection<Book>(db.Books.ToList());
         }
 
         #region AddProperties
@@ -61,8 +61,8 @@ namespace ORM_DatabaseFirest.ViewModels
         }
         #endregion
 
-        private ObservableCollection<Auth> _booksData;
-        public ObservableCollection<Auth> BooksData
+        private ObservableCollection<Book> _booksData;
+        public ObservableCollection<Book> BooksData
         {
             get { return _booksData; }
             set

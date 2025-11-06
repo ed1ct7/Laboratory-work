@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models;
+using ORM_DatabaseFirest.Models;
 using ORM_DatabaseFirest.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
@@ -50,33 +51,18 @@ namespace ViewModels
             Book book1 = new Book { Id = 1, Title = "Поле с плотностью 4 см", CountPage = 1674 };
             Book book2 = new Book { Id = 2, Title = "Ну оно опять не работает", CountPage = 54 };
 
+            AuthAndBook authAndBook = new AuthAndBook { AuthId = 1, BookId = 1 };
+
             db.Auths.AddRange(user1, user2);
             db.Books.AddRange(book1, book2);
+
+            var bookz = db.Books.Find(Convert.ToInt32(1));
+            var authz = db.Auths.Find(Convert.ToInt32(1));
+            authz.Books.Add(bookz);
+
             db.SaveChanges();
         }
         public ICommand AddDataCommand { get; set; }
         public virtual void AddData(object parameter) {; }
-
-		private ObservableCollection<Auth> _authdata;
-		public ObservableCollection<Auth> AuthsData
-		{
-			get { return _authdata; }
-			set { _authdata = value; }
-		}
-
-        private ObservableCollection<Auth> _bookdata;
-        public ObservableCollection<Auth> BooksData
-        {
-            get { return _bookdata; }
-            set { _bookdata = value; }
-        }
-
-        private ObservableCollection<Auth> _authbooksdata;
-        public ObservableCollection<Auth> AuthBooksData
-        {
-            get { return _authbooksdata; }
-            set { _authbooksdata = value; }
-        }
-
     }
 }

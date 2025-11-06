@@ -31,7 +31,18 @@ namespace ORM_DatabaseFirest.ViewModels
                 }))
                 .ToList();
 
-            AuthAndBookData = new ObservableCollection<AuthAndBook>(dataForGrid);
+            if (AuthAndBookData == null)
+            {
+                AuthAndBookData = new ObservableCollection<AuthAndBook>(dataForGrid);
+            }
+            else
+            {
+                AuthAndBookData.Clear();
+                foreach (var item in dataForGrid)
+                {
+                    AuthAndBookData.Add(item);
+                }
+            }
         }
 
         #region AddProperties
@@ -64,28 +75,31 @@ namespace ORM_DatabaseFirest.ViewModels
                 if (auth == null)
                 {
                     MessageBox.Show("Введён несуществующий автор");
+                    return;
                 }
                 else if (book == null)
                 {
                     MessageBox.Show("Введена несуществующая книга");
+                    return;
                 }
                 else if (auth.Books.Any(b => b.Id == book.Id))
                 {
                     MessageBox.Show("Эта книга уже связана с данным автором!");
+                    return;
                 }
                 else
                 {
                     auth.Books.Add(book);
                 }
+
                 db.SaveChanges();
-                Load();
+                Load(); // Вызов после сохранения
             }
             catch
             {
                 MessageBox.Show("Введено неверное значение", "Ошибка");
             }
         }
-
         private ObservableCollection<AuthAndBook> _authAndBookData;
         public ObservableCollection<AuthAndBook> AuthAndBookData
         {
