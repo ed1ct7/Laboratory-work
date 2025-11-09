@@ -9,6 +9,8 @@
       Title="ComponentPage">
 
     <Grid>
-        
+        <DataGrid>
+            
+        </DataGrid>
     </Grid>
 </Page>
