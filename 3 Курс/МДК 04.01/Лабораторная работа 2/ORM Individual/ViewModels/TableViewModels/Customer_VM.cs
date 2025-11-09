@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    internal class Customer_VM
+    public class Customer_VM
     {
     }
 }
