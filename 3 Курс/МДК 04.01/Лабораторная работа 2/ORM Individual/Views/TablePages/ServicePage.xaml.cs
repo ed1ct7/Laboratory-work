@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ORM_Individual.ViewModels.TableViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace ORM_Individual.Views.TablePages
         public ServicePage()
         {
             InitializeComponent();
+            this.DataContext = new Service_VM();
         }
     }
 }

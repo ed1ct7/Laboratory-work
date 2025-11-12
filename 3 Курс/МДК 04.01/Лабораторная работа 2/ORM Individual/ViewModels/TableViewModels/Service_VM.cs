@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,18 +10,26 @@ namespace ORM_Individual.ViewModels.TableViewModels
 {
     public class Service_VM : Base_VM
     {
-        public int Id { get; set; }
+        private Service _service;
+        public Service_VM(Service service = null) {
+            _service = service ?? new Service(); 
+        }
+        public int Id { 
+            get => _service.Id; set { _service.Id = value; OnPropertyChange(); } 
+        }
 
-        public string? Name { get; set; }
+        public string? Name {
+            get => _service.Name; set { _service.Name = value; OnPropertyChange(); }
+        }
 
-        public string? Description { get; set; }
+        public string? Description
+        {
+            get => _service.Description; set { _service.Description = value; OnPropertyChange(); } 
+        }
 
-        public decimal? Price { get; set; }
-
-        public virtual ICollection<Order> OrderService1s { get; set; } = new List<Order>();
-
-        public virtual ICollection<Order> OrderService2s { get; set; } = new List<Order>();
-
-        public virtual ICollection<Order> OrderService3s { get; set; } = new List<Order>();
+        public decimal? Price
+        {
+            get => _service.Price; set { _service.Price = value; OnPropertyChange(); }
+        }
     }
 }

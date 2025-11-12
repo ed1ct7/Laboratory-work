@@ -4,9 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ORM_Individual.Views"
+        xmlns:pr="clr-namespace:ORM_Individual.WPFControls.AttachedProperties"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+
+    <Canvas>
+        <Border pr:DragBehavior.IsDraggable="True"
+            Width="150" Height="100" 
+            Background="LightBlue"
+            Canvas.Left="50" Canvas.Top="50">
+            <TextBlock Text="Перетаскиваемый виджет"/>
+        </Border>
+        <Border pr:DragBehavior.IsDraggable="True"
+            Width="150" Height="100" 
+            Background="LightBlue"
+            Canvas.Left="50" Canvas.Top="10">
+            <TextBlock Text="Перетаскиваемый виджет"/>
+        </Border>
+    </Canvas>
+
 </Window>

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ORM_Individual.ViewModels;
 
 namespace ORM_Individual.Views
 {
@@ -22,6 +23,7 @@ namespace ORM_Individual.Views
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindow_VW();
         }
     }
 }

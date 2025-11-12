@@ -4,23 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ORM_Individual.Models.Entities;
+using ORM_Individual.Interfaces;
 
 namespace ORM_Individual.Models.Repositories
 {
-    public class ServiceRepository
+    public class ServiceRepository : BaseRepository<Service>
     {
-        public int Id { get; set; }
+        public void Add()
+        {
+            throw new NotImplementedException();
+        }
 
-        public string? Name { get; set; }
+        public void Remove()
+        {
+            throw new NotImplementedException();
+        }
 
-        public string? Description { get; set; }
-
-        public decimal? Price { get; set; }
-
-        public virtual ICollection<Order> OrderService1s { get; set; } = new List<Order>();
-
-        public virtual ICollection<Order> OrderService2s { get; set; } = new List<Order>();
-
-        public virtual ICollection<Order> OrderService3s { get; set; } = new List<Order>();
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
