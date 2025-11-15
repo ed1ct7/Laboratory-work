@@ -9,26 +9,58 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ORM_Individual.Models.Repositories;
+using ORM_Individual.Models.Entities;
+using ORM_Individual.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
     public abstract class BaseTable_VM<T> : Base_VM where T : class
     {
-        protected object _repository;
-        public object Repository
+        private ObservableCollection<T> _source;
+        public ObservableCollection<T> Source
+        {
+            get { return _source; }
+            set { _source = value;
+                OnPropertyChanged();
+            }
+        }
+
+        protected IRepository<T> _repository;
+        public IRepository<T> Repository
         {
             get { return _repository; }
             set { _repository = value; }
         }
+        private void InitializeValues()
+        {
+            var db = DatabaseContext.GetContext();
+            db.Database.EnsureCreated();
+
+            // Check if data already exists
+            if (!db.Services.Any())
+            {
+                Service user1 = new Service { Id = 1, Name = "Эдик", Description = "Aboba", Price = 100 };
+                Service user2 = new Service { Id = 2, Name = "Антон", Description = "Aboba", Price = 100 };
+
+                db.Services.AddRange(user1, user2);
+                db.SaveChanges();
+            }
+        }
+        
+
         protected void InitializeRep(T rep)
         {
             Repository = rep;
         }
         
         public BaseTable_VM() {
-
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
-
+            InitializeValues();
+            if(Repository is IRepository<T> repository)
+            {
+                Source = repository.GetAll();
+            }
         }
         protected DataTable _dataTable;
         public DataTable DataTableC

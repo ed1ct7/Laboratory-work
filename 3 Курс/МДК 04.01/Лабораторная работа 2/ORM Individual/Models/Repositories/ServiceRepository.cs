@@ -10,10 +10,6 @@ namespace ORM_Individual.Models.Repositories
 {
     public class ServiceRepository : BaseRepository<Service>
     {
-        public void GetAll()
-        {
-
-        }
         public void Add()
         {
             throw new NotImplementedException();

@@ -15,6 +15,14 @@ public partial class DatabaseContext : DbContext
     {
     }
 
+    static DatabaseContext context;
+
+    public static DatabaseContext GetContext()
+    {
+        if (context == null) context = new DatabaseContext();
+        return context;
+    }
+
     public virtual DbSet<Component> Components { get; set; }
 
     public virtual DbSet<ComponentType> ComponentTypes { get; set; }

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ORM_Individual.Interfaces;
+using ORM_Individual.Models.Entities;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ORM_Individual.Models.Entities;
-using ORM_Individual.Interfaces;
+using System.Windows.Documents;
 
 namespace ORM_Individual.Models.Repositories
 {
@@ -14,9 +16,11 @@ namespace ORM_Individual.Models.Repositories
         {
             throw new NotImplementedException();
         }
-        public virtual void GetAll()
+        public virtual ObservableCollection<T> GetAll()
         {
-            throw new NotImplementedException();
+            var db = DatabaseContext.GetContext();
+            var dbSet = db.Set<T>();
+            return new ObservableCollection<T>(dbSet.ToList());
         }
         public virtual void Remove(int id)
         {

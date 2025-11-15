@@ -9,7 +9,7 @@
       Title="ServicePage">
 
     <Grid>
-        <DataGrid>
+        <DataGrid ItemsSource="{Binding Source}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
