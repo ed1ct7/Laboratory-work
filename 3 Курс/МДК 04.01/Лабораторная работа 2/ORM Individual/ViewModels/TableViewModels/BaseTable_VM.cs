@@ -1,33 +1,28 @@
-﻿using ORM_Individual.ViewModels.Commands;
-using System;
-using System.Collections.Generic;
+﻿using ORM_Individual.Interfaces;
+using ORM_Individual.Models.Entities;
+using ORM_Individual.ViewModels.Commands;
+using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using ORM_Individual.Models.Repositories;
-using ORM_Individual.Models.Entities;
-using ORM_Individual.Interfaces;
-using System.Collections.ObjectModel;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public abstract class BaseTable_VM<T> : Base_VM where T : class
+    public abstract class BaseTable_VM<TEntity> : Base_VM where TEntity : class
     {
-        private ObservableCollection<T> _source;
-        public ObservableCollection<T> Source
+        private ObservableCollection<TEntity> _source;
+        public ObservableCollection<TEntity> Source
         {
             get { return _source; }
-            set { _source = value;
+            set
+            {
+                _source = value;
                 OnPropertyChanged();
             }
         }
-
-        protected IRepository<T> _repository;
-        public IRepository<T> Repository
+        protected IRepository<TEntity> _repository;
+        public IRepository<TEntity> Repository
         {
             get { return _repository; }
             set { _repository = value; }
@@ -47,20 +42,19 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 db.SaveChanges();
             }
         }
-        
 
-        protected void InitializeRep(T rep)
+
+        protected void InitializeRep(IRepository<TEntity> repository)
         {
-            Repository = rep;
+            Repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            Source = Repository.GetAll();
         }
-        
-        public BaseTable_VM() {
+
+
+        public BaseTable_VM()
+        {
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
             InitializeValues();
-            if(Repository is IRepository<T> repository)
-            {
-                Source = repository.GetAll();
-            }
         }
         protected DataTable _dataTable;
         public DataTable DataTableC
