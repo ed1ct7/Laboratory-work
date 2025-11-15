@@ -5,22 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ORM_Individual.Views"
         xmlns:pr="clr-namespace:ORM_Individual.WPFControls.AttachedProperties"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Canvas MouseRightButtonDown="">
-        <Border pr:DragBehavior.IsDraggable="True"
-            Width="150" Height="100" 
-            Background="LightBlue"
-            Canvas.Left="50" Canvas.Top="50">
-            <TextBlock Text="Перетаскиваемый виджет"/>
-        </Border>
-        <Border pr:DragBehavior.IsDraggable="True"
-            Width="150" Height="100" 
-            Background="LightBlue"
-            Canvas.Left="50" Canvas.Top="10">
-            <TextBlock Text="Перетаскиваемый виджет"/>
-        </Border>
+    <Canvas Background="Transparent">
+        <Canvas.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Add Table">
+                    <MenuItem Header="Component" Command="{Binding AddTableCommand}" CommandParameter="Component"/>
+                    <MenuItem Header="Component Type" Command="{Binding AddTableCommand}" CommandParameter="ComponentType"/>
+                    <MenuItem Header="Customer" Command="{Binding AddTableCommand}" CommandParameter="Customer"/>
+                    <MenuItem Header="Employee" Command="{Binding AddTableCommand}" CommandParameter="Employee"/>
+                    <MenuItem Header="Order" Command="{Binding AddTableCommand}" CommandParameter="Order"/>
+                    <MenuItem Header="Position" Command="{Binding AddTableCommand}" CommandParameter="Position"/>
+                    <MenuItem Header="Service" Command="{Binding AddTableCommand}" CommandParameter="Service"/>
+                </MenuItem>
+                <MenuItem Header="Delete"/>
+            </ContextMenu>
+        </Canvas.ContextMenu>
+        <ItemsControl ItemsSource="{Binding TableFrames}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="Transparent"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </Canvas>
 
 </Window>

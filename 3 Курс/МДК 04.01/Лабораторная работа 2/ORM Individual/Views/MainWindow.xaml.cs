@@ -25,5 +25,6 @@ namespace ORM_Individual.Views
             InitializeComponent();
             this.DataContext = new MainWindow_VW();
         }
+
     }
 }
