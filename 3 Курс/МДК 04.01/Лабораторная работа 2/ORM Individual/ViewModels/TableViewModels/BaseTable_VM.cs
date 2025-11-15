@@ -9,10 +9,10 @@ using System.Windows.Threading;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public abstract class BaseTable_VM<TEntity> : Base_VM where TEntity : class
+    public abstract class BaseTable_VM<T> : Base_VM where T : class
     {
-        private ObservableCollection<TEntity> _source;
-        public ObservableCollection<TEntity> Source
+        private ObservableCollection<T> _source;
+        public ObservableCollection<T> Source
         {
             get { return _source; }
             set
@@ -21,8 +21,8 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 OnPropertyChanged();
             }
         }
-        protected IRepository<TEntity> _repository;
-        public IRepository<TEntity> Repository
+        protected IRepository<T> _repository;
+        public IRepository<T> Repository
         {
             get { return _repository; }
             set { _repository = value; }
@@ -43,19 +43,18 @@ namespace ORM_Individual.ViewModels.TableViewModels
             }
         }
 
-
-        protected void InitializeRep(IRepository<TEntity> repository)
+        protected void InitializeRep(IRepository<T> repository)
         {
             Repository = repository ?? throw new ArgumentNullException(nameof(repository));
             Source = Repository.GetAll();
         }
-
 
         public BaseTable_VM()
         {
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
             InitializeValues();
         }
+
         protected DataTable _dataTable;
         public DataTable DataTableC
         {
