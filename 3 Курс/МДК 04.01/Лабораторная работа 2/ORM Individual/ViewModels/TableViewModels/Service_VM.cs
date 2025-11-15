@@ -11,6 +11,9 @@ namespace ORM_Individual.ViewModels.TableViewModels
 {
     public class Service_VM : BaseTable_VM <ServiceRepository>
     {
+        public Service_VM() { 
+            
+        }
     }
     public class ServiceSingleElement : Service_VM
     {

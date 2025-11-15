@@ -10,17 +10,19 @@ namespace ORM_Individual.Models.Repositories
 {
     public abstract class BaseRepository<T> : IRepository<T> where T : class
     {
-        public void Add(T entity)
-        {
-
-        }
-
-        public void Remove(int id)
+        public virtual void Add(T entity)
         {
             throw new NotImplementedException();
         }
-
-        public void Update(int id, T entity)
+        public virtual void GetAll()
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void Remove(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void Update(int id, T entity)
         {
             throw new NotImplementedException();
         }
