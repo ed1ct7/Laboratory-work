@@ -7,7 +7,7 @@ using ORM_Individual.Models.Entities;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public class Order_VM : Base_VM
+    public class Order_VM : BaseTable_VM
     {
         public int Id { get; set; }
 
@@ -56,5 +56,10 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public virtual Service? Service2 { get; set; }
 
         public virtual Service? Service3 { get; set; }
+
+        public override void InnitializeRep(object rep)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

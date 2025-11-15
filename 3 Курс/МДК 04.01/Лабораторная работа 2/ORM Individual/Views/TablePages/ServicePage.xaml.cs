@@ -24,7 +24,7 @@ namespace ORM_Individual.Views.TablePages
         public ServicePage()
         {
             InitializeComponent();
-            this.DataContext = new Service_VM();
+            this.DataContext = new ServiceSingleElement();
         }
     }
 }

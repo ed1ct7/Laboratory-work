@@ -7,7 +7,7 @@ using ORM_Individual.Models.Entities;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public class ComponentType_VM : Base_VM
+    public class ComponentType_VM : BaseTable_VM
     {
         public int Id { get; set; }
 
@@ -16,5 +16,10 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public string? Description { get; set; }
 
         public virtual ICollection<Component> Components { get; set; } = new List<Component>();
+
+        public override void InnitializeRep(object rep)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

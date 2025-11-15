@@ -7,7 +7,7 @@ using ORM_Individual.Models.Entities;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public class Employee_VM : Base_VM
+    public class Employee_VM : BaseTable_VM
     {
         public int Id { get; set; }
 
@@ -28,5 +28,10 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
         public virtual Position? Position { get; set; }
+
+        public override void InnitializeRep(object rep)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

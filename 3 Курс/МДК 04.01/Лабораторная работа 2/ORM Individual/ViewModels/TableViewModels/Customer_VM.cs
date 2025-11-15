@@ -7,7 +7,7 @@ using ORM_Individual.Models.Entities;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public class Customer_VM : Base_VM
+    public class Customer_VM : BaseTable_VM
     {
         public int Id { get; set; }
 
@@ -18,5 +18,10 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public string? Phone { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+
+        public override void InnitializeRep(object rep)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,8 +9,8 @@ namespace ORM_Individual.ViewModels.Commands
 {
     public class RelayCommand : ICommand
     {
-        public Action _execute;
-        public RelayCommand(Action execute) { 
+        public Action<object> _execute;
+        public RelayCommand(Action<object> execute) { 
             _execute = execute;
         }
         public event EventHandler? CanExecuteChanged;
@@ -20,7 +20,7 @@ namespace ORM_Individual.ViewModels.Commands
         }
         public void Execute(object? parameter)
         {
-            _execute();
+            _execute(parameter);
         }
     }
 }
