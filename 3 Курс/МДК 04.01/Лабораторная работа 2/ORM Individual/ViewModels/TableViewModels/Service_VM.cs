@@ -9,12 +9,8 @@ using ORM_Individual.Models.Repositories;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public class Service_VM : BaseTable_VM
+    public class Service_VM : BaseTable_VM <ServiceRepository>
     {
-        public Service_VM() {
-            object repository = new ServiceRepository();
-            InitializeRep(repository);
-        }
     }
     public class ServiceSingleElement : Service_VM
     {

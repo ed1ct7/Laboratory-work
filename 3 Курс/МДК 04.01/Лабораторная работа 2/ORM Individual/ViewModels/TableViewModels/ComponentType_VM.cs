@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ORM_Individual.Models.Entities;
+using ORM_Individual.Models.Repositories;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public class ComponentType_VM : BaseTable_VM
+    public class ComponentType_VM : BaseTable_VM <ComponentRepository>
     {
         public int Id { get; set; }
 
@@ -17,9 +18,5 @@ namespace ORM_Individual.ViewModels.TableViewModels
 
         public virtual ICollection<Component> Components { get; set; } = new List<Component>();
 
-        public override void InnitializeRep(object rep)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

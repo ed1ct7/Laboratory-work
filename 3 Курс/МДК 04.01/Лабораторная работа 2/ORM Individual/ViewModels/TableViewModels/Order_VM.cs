@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ORM_Individual.Models.Entities;
+using ORM_Individual.Models.Repositories;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public class Order_VM : BaseTable_VM
+    public class Order_VM : BaseTable_VM <OrderRepository>
     {
         public int Id { get; set; }
 
@@ -56,10 +57,5 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public virtual Service? Service2 { get; set; }
 
         public virtual Service? Service3 { get; set; }
-
-        public override void InnitializeRep(object rep)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -12,7 +12,7 @@ using ORM_Individual.Models.Repositories;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public abstract class BaseTable_VM : Base_VM
+    public abstract class BaseTable_VM<T> : Base_VM where T : class
     {
         protected object _repository;
         public object Repository
@@ -20,7 +20,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
             get { return _repository; }
             set { _repository = value; }
         }
-        protected void InitializeRep(object rep)
+        protected void InitializeRep(T rep)
         {
             Repository = rep;
         }
