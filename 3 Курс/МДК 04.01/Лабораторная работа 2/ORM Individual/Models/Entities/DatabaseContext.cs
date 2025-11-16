@@ -40,7 +40,47 @@ public partial class DatabaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=C:\\Secret\\Laboratory-work\\3 Курс\\МДК 04.01\\Лабораторная работа 2\\ORM Individual\\Database.db");
+        if (optionsBuilder.IsConfigured)
+        {
+            return;
+        }
+
+        var dbPath = GetDatabasePath();
+        optionsBuilder.UseSqlite($"Data Source={dbPath}");
+    }
+
+    private static string GetDatabasePath()
+    {
+        var baseDirectory = AppContext.BaseDirectory;
+        var projectRoot = FindProjectRoot(baseDirectory);
+        var dbDirectory = projectRoot ?? baseDirectory;
+        var path = Path.Combine(dbDirectory, "Database.db");
+
+        var directory = Path.GetDirectoryName(path);
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
+        return path;
+    }
+
+    private static string? FindProjectRoot(string startDirectory)
+    {
+        var directoryInfo = new DirectoryInfo(startDirectory);
+
+        while (directoryInfo != null)
+        {
+            var projectFile = Path.Combine(directoryInfo.FullName, "ORM Individual.csproj");
+            if (File.Exists(projectFile))
+            {
+                return directoryInfo.FullName;
+            }
+
+            directoryInfo = directoryInfo.Parent;
+        }
+
+        return null;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

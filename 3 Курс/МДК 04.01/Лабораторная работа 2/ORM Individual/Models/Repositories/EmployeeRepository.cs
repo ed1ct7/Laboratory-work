@@ -1,32 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using ORM_Individual.Models.Entities;
+using System.Collections.ObjectModel;
 
 namespace ORM_Individual.Models.Repositories
 {
-    public class EmployeeRepository
+    public class EmployeeRepository : BaseRepository<Employee>
     {
-        public int Id { get; set; }
-
-        public string? FullName { get; set; }
-
-        public int? Age { get; set; }
-
-        public bool? Gender { get; set; }
-
-        public string? Address { get; set; }
-
-        public string? Phone { get; set; }
-
-        public string? PassportData { get; set; }
-
-        public int? PositionId { get; set; }
-
-        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
-
-        public virtual Position? Position { get; set; }
+        public override ObservableCollection<Employee> GetAll()
+        {
+            return new ObservableCollection<Employee>(
+                Set.Include(e => e.Position)
+                   .AsNoTracking()
+                   .ToList());
+        }
     }
 }

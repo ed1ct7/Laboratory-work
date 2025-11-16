@@ -1,127 +1,104 @@
 ﻿using ORM_Individual.Interfaces;
 using ORM_Individual.Models.Entities;
-using ORM_Individual.ViewModels.Commands;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;
+using System.Reflection;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
     public abstract class BaseTable_VM<T> : Base_VM where T : class
     {
-        private ObservableCollection<T> _source;
+        private static bool _databaseInitialized;
+        private ObservableCollection<T> _source = new();
+
+        protected IRepository<T> Repository { get; }
+
         public ObservableCollection<T> Source
         {
-            get { return _source; }
-            set
+            get => _source;
+            private set
             {
                 _source = value;
                 OnPropertyChanged();
             }
         }
-        protected IRepository<T> _repository;
-        public IRepository<T> Repository
-        {
-            get { return _repository; }
-            set { _repository = value; }
-        }
-        private void InitializeValues()
-        {
-            var db = DatabaseContext.GetContext();
-            db.Database.EnsureCreated();
-
-            if (!db.Services.Any()) // ← проверка
-            {
-                Service user1 = new Service { Id = 3, Name = "Эдик", Description = "Aboba", Price = 100 };
-                Service user2 = new Service { Id = 4, Name = "Антон", Description = "Aboba", Price = 100 };
-
-                db.Services.AddRange(user1, user2);
-                db.SaveChanges();
-            }
-        }
 
         protected BaseTable_VM(IRepository<T> repository)
         {
-            RowEditEndingCommand = new RelayCommand(RowEditEnding);
-            InitializeValues();
-            InitializeRep(repository);
-        }
-
-        protected void InitializeRep(IRepository<T> repository)
-        {
             Repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            EnsureDatabase();
+            LoadSource();
+        }
+
+        public void SaveRow(T? entity)
+        {
+            if (entity == null)
+            {
+                return;
+            }
+
+            var id = GetEntityId(entity);
+            if (id == 0 || Repository.FindById(id) == null)
+            {
+                Repository.Add(entity);
+            }
+            else
+            {
+                Repository.Update(entity);
+            }
+
+            LoadSource();
+        }
+
+        public void DeleteRow(T? entity)
+        {
+            if (entity == null)
+            {
+                return;
+            }
+
+            var id = GetEntityId(entity);
+            if (id == 0)
+            {
+                Source.Remove(entity);
+                return;
+            }
+
+            Repository.Remove(id);
+            LoadSource();
+        }
+
+        protected void LoadSource()
+        {
             Source = Repository.GetAll();
-            OnPropertyChanged(nameof(Source));
         }
 
-        protected DataTable _dataTable;
-        public DataTable DataTableC
+        private static void EnsureDatabase()
         {
-            get { return _dataTable; }
-            set
+            if (_databaseInitialized)
             {
-                _dataTable = value;
-                OnPropertyChanged();
+                return;
             }
+
+            var context = DatabaseContext.GetContext();
+            context.Database.EnsureCreated();
+            _databaseInitialized = true;
         }
-        public ICommand CellEditEndingCommand { get; }
-        public ICommand RowEditEndingCommand { get; }
-        protected void RowEditEnding(object parameter)
+
+        private static int GetEntityId(T entity)
         {
-            if (parameter is DataGridRowEditEndingEventArgs e)
+            var propertyInfo = entity.GetType().GetProperty("Id", BindingFlags.Public | BindingFlags.Instance);
+            if (propertyInfo == null)
             {
-                if (e.EditAction == DataGridEditAction.Commit)
-                {
-                    if (e.Row.DataContext is DataRowView dataRowView)
-                    {
-                        Dispatcher dispatcher = System.Windows.Application.Current.Dispatcher;
-                        Action myAction = delegate ()
-                        {
-                            ProcessRowEdit(dataRowView.Row);
-                        };
-                        dispatcher.BeginInvoke(myAction, DispatcherPriority.Background);
-                    }
-                }
+                throw new InvalidOperationException($"Type {entity.GetType().Name} must expose an Id property");
             }
-        }
-        protected void ProcessRowEdit(DataRow dataRow)
-        {
-            try
+
+            var value = propertyInfo.GetValue(entity);
+            if (value == null)
             {
-                bool isNewRow = dataRow.RowState == DataRowState.Added ||
-                                dataRow.RowState == DataRowState.Detached ||
-                                dataRow.IsNull("id") ||
-                                dataRow["id"] == DBNull.Value ||
-                                Convert.ToInt32(dataRow["id"]) == 0;
-
-                dynamic repository = Repository;
-                var entity = repository.CreateInstanceFromDataRow(dataRow);
-
-                if (isNewRow)
-                {
-                    repository.Add(entity);
-                    dataRow["id"] = entity.Id;
-                }
-                else
-                {
-                    repository.Update(entity);
-                }
-                Dispatcher dispatcher = System.Windows.Application.Current.Dispatcher;
-                Action myAction = delegate ()
-                {
-                    RefreshDataTable(repository);
-                };
-                dispatcher.BeginInvoke(myAction, DispatcherPriority.ApplicationIdle);
+                return 0;
             }
-            catch (Exception ex) { }
-        }
 
-        protected void RefreshDataTable(dynamic repository)
-        {
-            var newDataTable = repository.GetAll();
-            DataTableC = newDataTable;
+            return Convert.ToInt32(value);
         }
     }
 }

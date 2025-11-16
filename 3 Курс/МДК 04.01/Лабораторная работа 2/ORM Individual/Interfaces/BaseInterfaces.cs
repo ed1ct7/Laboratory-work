@@ -9,13 +9,10 @@ namespace ORM_Individual.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        public void Add(T entity);
-        public void Remove(int id);
-        public void Update(int id, T entity);
-        public ObservableCollection<T> GetAll();
-    }
-    public interface IViewModel
-    {
-
+        ObservableCollection<T> GetAll();
+        T Add(T entity);
+        T Update(T entity);
+        void Remove(int id);
+        T? FindById(int id);
     }
 }

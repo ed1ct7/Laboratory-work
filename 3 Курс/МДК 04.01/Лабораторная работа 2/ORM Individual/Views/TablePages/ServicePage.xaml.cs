@@ -1,18 +1,7 @@
-﻿using ORM_Individual.ViewModels.TableViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using ORM_Individual.Models.Entities;
+using ORM_Individual.ViewModels.TableViewModels;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ORM_Individual.Views.TablePages
 {
@@ -24,7 +13,32 @@ namespace ORM_Individual.Views.TablePages
         public ServicePage()
         {
             InitializeComponent();
-            this.DataContext = new ServiceSingleElement();
+            DataContext = new Service_VM();
+        }
+
+        private Service_VM ViewModel => (Service_VM)DataContext;
+
+        private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            if (e.EditAction != DataGridEditAction.Commit)
+            {
+                return;
+            }
+
+            if (e.Row.Item is Service service)
+            {
+                ViewModel.SaveRow(service);
+            }
+        }
+
+        private void DataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Delete || ServiceDataGrid.SelectedItem is not Service service)
+            {
+                return;
+            }
+
+            ViewModel.DeleteRow(service);
         }
     }
 }

@@ -1,34 +1,66 @@
 ﻿using ORM_Individual.Interfaces;
 using ORM_Individual.Models.Entities;
 using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 
 namespace ORM_Individual.Models.Repositories
 {
     public abstract class BaseRepository<T> : IRepository<T> where T : class
     {
-        public virtual void Add(T entity)
+        protected DatabaseContext Context { get; }
+        protected DbSet<T> Set { get; }
+
+        protected BaseRepository()
         {
-            throw new NotImplementedException();
+            Context = DatabaseContext.GetContext();
+            Set = Context.Set<T>();
         }
+
+        public virtual T Add(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            Set.Add(entity);
+            Context.SaveChanges();
+            return entity;
+        }
+
         public virtual ObservableCollection<T> GetAll()
         {
-            var db = DatabaseContext.GetContext();
-            var dbSet = db.Set<T>();
-            return new ObservableCollection<T>(dbSet.ToList());
+            return new ObservableCollection<T>(Set.AsNoTracking().ToList());
         }
+
         public virtual void Remove(int id)
         {
-            throw new NotImplementedException();
+            var entity = FindById(id);
+            if (entity == null)
+            {
+                return;
+            }
+
+            Set.Remove(entity);
+            Context.SaveChanges();
         }
-        public virtual void Update(int id, T entity)
+
+        public virtual T Update(T entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            Set.Update(entity);
+            Context.SaveChanges();
+            return entity;
+        }
+
+        public virtual T? FindById(int id)
+        {
+            return Set.Find(id);
         }
     }
 }

@@ -1,14 +1,41 @@
-﻿<Page x:Class="ORM_Individual.Views.TablePages.OrderPage"
+<Page x:Class="ORM_Individual.Views.TablePages.OrderPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:ORM_Individual.Views.TablePages"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="OrderPage">
 
     <Grid>
-        
+        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+            <DataGrid x:Name="OrderDataGrid"
+                      ItemsSource="{Binding Source}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="True"
+                      RowEditEnding="DataGrid_RowEditEnding"
+                      PreviewKeyDown="DataGrid_PreviewKeyDown"
+                      MinColumnWidth="100">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Order date" Binding="{Binding OrderDate}"/>
+                    <DataGridTextColumn Header="Completion" Binding="{Binding CompletionDate}"/>
+                    <DataGridTextColumn Header="Customer" Binding="{Binding CustomerId}"/>
+                    <DataGridTextColumn Header="Component 1" Binding="{Binding Component1Id}"/>
+                    <DataGridTextColumn Header="Component 2" Binding="{Binding Component2Id}"/>
+                    <DataGridTextColumn Header="Component 3" Binding="{Binding Component3Id}"/>
+                    <DataGridTextColumn Header="Prepayment" Binding="{Binding Prepayment}"/>
+                    <DataGridCheckBoxColumn Header="Is paid" Binding="{Binding IsPaid}"/>
+                    <DataGridCheckBoxColumn Header="Is completed" Binding="{Binding IsCompleted}"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount}"/>
+                    <DataGridTextColumn Header="Warranty" Binding="{Binding TotalWarranty}"/>
+                    <DataGridTextColumn Header="Service 1" Binding="{Binding Service1Id}"/>
+                    <DataGridTextColumn Header="Service 2" Binding="{Binding Service2Id}"/>
+                    <DataGridTextColumn Header="Service 3" Binding="{Binding Service3Id}"/>
+                    <DataGridTextColumn Header="Employee" Binding="{Binding EmployeeId}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
     </Grid>
 </Page>

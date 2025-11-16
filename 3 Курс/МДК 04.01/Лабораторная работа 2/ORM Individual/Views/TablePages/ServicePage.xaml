@@ -9,7 +9,12 @@
       Title="ServicePage">
 
     <Grid>
-        <DataGrid ItemsSource="{Binding Source}">
+        <DataGrid x:Name="ServiceDataGrid"
+                  ItemsSource="{Binding Source}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="True"
+                  RowEditEnding="DataGrid_RowEditEnding"
+                  PreviewKeyDown="DataGrid_PreviewKeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
