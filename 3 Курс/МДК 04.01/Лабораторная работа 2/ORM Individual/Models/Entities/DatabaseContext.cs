@@ -40,7 +40,7 @@ public partial class DatabaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=C:\\Secret\\fork\\Labwork\\Databases\\Database.db");
+        optionsBuilder.UseSqlite("Data Source=C:\\Secret\\Laboratory-work\\3 Курс\\МДК 04.01\\Лабораторная работа 2\\ORM Individual\\Database.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

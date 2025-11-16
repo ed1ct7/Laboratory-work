@@ -32,27 +32,28 @@ namespace ORM_Individual.ViewModels.TableViewModels
             var db = DatabaseContext.GetContext();
             db.Database.EnsureCreated();
 
-            // Check if data already exists
-            if (!db.Services.Any())
+            if (!db.Services.Any()) // ← проверка
             {
-                Service user1 = new Service { Id = 1, Name = "Эдик", Description = "Aboba", Price = 100 };
-                Service user2 = new Service { Id = 2, Name = "Антон", Description = "Aboba", Price = 100 };
+                Service user1 = new Service { Id = 3, Name = "Эдик", Description = "Aboba", Price = 100 };
+                Service user2 = new Service { Id = 4, Name = "Антон", Description = "Aboba", Price = 100 };
 
                 db.Services.AddRange(user1, user2);
                 db.SaveChanges();
             }
         }
 
+        protected BaseTable_VM(IRepository<T> repository)
+        {
+            RowEditEndingCommand = new RelayCommand(RowEditEnding);
+            InitializeValues();
+            InitializeRep(repository);
+        }
+
         protected void InitializeRep(IRepository<T> repository)
         {
             Repository = repository ?? throw new ArgumentNullException(nameof(repository));
             Source = Repository.GetAll();
-        }
-
-        public BaseTable_VM()
-        {
-            RowEditEndingCommand = new RelayCommand(RowEditEnding);
-            InitializeValues();
+            OnPropertyChanged(nameof(Source));
         }
 
         protected DataTable _dataTable;
