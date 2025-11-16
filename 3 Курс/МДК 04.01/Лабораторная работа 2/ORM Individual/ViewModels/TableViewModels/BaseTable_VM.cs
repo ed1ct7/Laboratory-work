@@ -1,7 +1,9 @@
 ﻿using ORM_Individual.Interfaces;
 using ORM_Individual.Models.Entities;
+using ORM_Individual.ViewModels.Commands;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Windows.Input;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
@@ -11,6 +13,10 @@ namespace ORM_Individual.ViewModels.TableViewModels
         private ObservableCollection<T> _source = new();
 
         protected IRepository<T> Repository { get; }
+
+        public ICommand SaveRowCommand { get; }
+
+        public ICommand DeleteRowCommand { get; }
 
         public ObservableCollection<T> Source
         {
@@ -27,6 +33,9 @@ namespace ORM_Individual.ViewModels.TableViewModels
             Repository = repository ?? throw new ArgumentNullException(nameof(repository));
             EnsureDatabase();
             LoadSource();
+
+            SaveRowCommand = new RelayCommand(parameter => SaveRow(parameter as T));
+            DeleteRowCommand = new RelayCommand(parameter => DeleteRow(parameter as T));
         }
 
         public void SaveRow(T? entity)

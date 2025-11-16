@@ -1,7 +1,4 @@
-﻿using ORM_Individual.Models.Entities;
-using ORM_Individual.ViewModels.TableViewModels;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 
 namespace ORM_Individual.Views.TablePages
 {
@@ -13,32 +10,6 @@ namespace ORM_Individual.Views.TablePages
         public PositionPage()
         {
             InitializeComponent();
-            DataContext = new Position_VM();
-        }
-
-        private Position_VM ViewModel => (Position_VM)DataContext;
-
-        private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-            if (e.EditAction != DataGridEditAction.Commit)
-            {
-                return;
-            }
-
-            if (e.Row.Item is Position position)
-            {
-                ViewModel.SaveRow(position);
-            }
-        }
-
-        private void DataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Delete || PositionDataGrid.SelectedItem is not Position position)
-            {
-                return;
-            }
-
-            ViewModel.DeleteRow(position);
         }
     }
 }

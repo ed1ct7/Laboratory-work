@@ -1,20 +1,24 @@
 ﻿<Page x:Class="ORM_Individual.Views.TablePages.ServicePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ORM_Individual.Views.TablePages"
-      mc:Ignorable="d" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModels="clr-namespace:ORM_Individual.ViewModels.TableViewModels"
+      xmlns:behaviors="clr-namespace:ORM_Individual.WPFControls.AttachedProperties"
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ServicePage">
 
+    <Page.DataContext>
+        <viewModels:Service_VM />
+    </Page.DataContext>
+
     <Grid>
-        <DataGrid x:Name="ServiceDataGrid"
-                  ItemsSource="{Binding Source}"
+        <DataGrid ItemsSource="{Binding Source}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="True"
-                  RowEditEnding="DataGrid_RowEditEnding"
-                  PreviewKeyDown="DataGrid_PreviewKeyDown">
+                  behaviors:DataGridCommands.RowEditEndingCommand="{Binding SaveRowCommand}"
+                  behaviors:DataGridCommands.DeleteCommand="{Binding DeleteRowCommand}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
