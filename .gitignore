@@ -79,8 +79,6 @@ dist/
 
 
 ### Database ###
-*.db
-*.sqlite3
 
 
 ### Logs ###
