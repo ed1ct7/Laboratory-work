@@ -29,21 +29,33 @@ namespace MVP_Triangle
             set => label5.Text = value;
         }
 
+        public T TryFuncCheck<T>(Func<T> func)
+        {
+            try
+            {
+                return func();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public double InputA
         {
-            get => Convert.ToDouble(textBox1.Text);
+            get => TryFuncCheck(() => Convert.ToDouble(textBox1.Text));
             set { textBox1.Text = value.ToString(); }
         }
 
         public double InputB
         {
-            get => Convert.ToDouble(textBox2.Text);
+            get => TryFuncCheck(() => Convert.ToDouble(textBox2.Text));
             set { textBox2.Text = value.ToString(); }
         }
 
         public double InputC
         {
-            get => Convert.ToDouble(textBox3.Text);
+            get => TryFuncCheck(() => Convert.ToDouble(textBox3.Text));
             set { textBox3.Text = value.ToString(); }
         }
 
