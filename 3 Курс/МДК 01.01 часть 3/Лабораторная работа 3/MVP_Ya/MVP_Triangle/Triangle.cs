@@ -149,11 +149,13 @@ namespace MVP_Triangle
 
         public override string ToString()
         {
-            CalculateAngles();
-            if (IsExist() == true) {
+            if (!IsExist())
+            {
                 return "Triangle doesn't exist";
             }
-            else {
+            else
+            {
+                CalculateAngles();
                 return $"Triangle with sides: {Sides}\nAngles: {Angles}\nPerimeter: {Perimeter():F2}\nArea: {Area():F2}\nIsosceles: {Isosceles}";
             }
         }
