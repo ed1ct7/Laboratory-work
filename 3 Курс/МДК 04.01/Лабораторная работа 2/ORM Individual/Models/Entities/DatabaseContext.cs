@@ -90,7 +90,7 @@ public partial class DatabaseContext : DbContext
             entity.ToTable("Component");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.Brand).HasColumnName("brand");
             entity.Property(e => e.Description).HasColumnName("description");
@@ -114,7 +114,7 @@ public partial class DatabaseContext : DbContext
             entity.ToTable("ComponentType");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Name).HasColumnName("name");
@@ -125,7 +125,7 @@ public partial class DatabaseContext : DbContext
             entity.ToTable("Customer");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.Address).HasColumnName("address");
             entity.Property(e => e.FullName).HasColumnName("full_name");
@@ -137,7 +137,7 @@ public partial class DatabaseContext : DbContext
             entity.ToTable("Employee");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.Address).HasColumnName("address");
             entity.Property(e => e.Age)
@@ -159,7 +159,7 @@ public partial class DatabaseContext : DbContext
             entity.ToTable("Order");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CompletionDate).HasColumnName("completion_date");
             entity.Property(e => e.Component1Id).HasColumnName("component1_id");
@@ -207,7 +207,7 @@ public partial class DatabaseContext : DbContext
             entity.ToTable("Position");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.Duties).HasColumnName("duties");
             entity.Property(e => e.Name).HasColumnName("name");
@@ -222,7 +222,7 @@ public partial class DatabaseContext : DbContext
             entity.ToTable("Service");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Name).HasColumnName("name");
