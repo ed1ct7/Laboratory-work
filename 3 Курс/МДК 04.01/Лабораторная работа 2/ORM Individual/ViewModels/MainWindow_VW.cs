@@ -51,7 +51,7 @@ namespace ORM_Individual.ViewModels
                 var border = new Border
                 {
                     Width = 500,
-                    Height = 100,
+                    Height = 2000,
                     Background = Brushes.LightBlue,
                     BorderBrush = Brushes.DarkBlue,
                     BorderThickness = new Thickness(1),

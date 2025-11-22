@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:ORM_Individual.ViewModels.TableViewModels"
       xmlns:behaviors="clr-namespace:ORM_Individual.WPFControls.AttachedProperties"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PositionPage">
@@ -24,6 +25,12 @@
                 <DataGridTextColumn Header="Duties" Binding="{Binding Duties}"/>
                 <DataGridTextColumn Header="Requirements" Binding="{Binding Requirements}"/>
             </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="RowEditEnding">
+                    <i:InvokeCommandAction Command="{Binding RowEditEndingCommand}"
+                                 PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </DataGrid>
     </Grid>
 </Page>

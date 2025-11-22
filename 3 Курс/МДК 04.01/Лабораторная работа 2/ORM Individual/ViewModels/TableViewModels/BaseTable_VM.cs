@@ -45,44 +45,20 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 e.Row.BindingGroup?.CommitEdit();
                 if (e.EditAction == DataGridEditAction.Commit && (e.Row.DataContext is IEntity entity))
                 {
-                    Source.Add((T)entity);
-
                     try
                     {
+                        foreach (IEntity row in Repository.GetAll())
+                        {
+                            if(row.Id == entity.Id)
+                            {
+                                Repository.Update((T)entity);
+                                return;
+                            }
+                        }
                         Repository.Add((T)entity);
-                        //        dataRow["id"] = corent.Id;
-                        //bool isNewRow = e.Row. == DataRowState.Added ||
-                        //                dataRow.RowState == DataRowState.Detached ||
-                        //                dataRow.IsNull("id") ||
-                        //                dataRow["id"] == DBNull.Value ||
-                        //                Convert.ToInt32(dataRow["id"]) == 0;
-
-                        //    if (isNewRow && (entity is IEntity corent))
-                        //    {
-                        //        Repository.Add(entity);
-                        //        dataRow["id"] = corent.Id;
-                        //    }
-                        //    else
-                        //    {
-                        //        Repository.Update(entity);
-                        //    }
-                        //    Dispatcher dispatcher = System.Windows.Application.Current.Dispatcher;
-                        //    Action myAction = delegate ()
-                        //    {
-                        //        RefreshDataTable(Repository);
-                        //    };
-                        //    dispatcher.BeginInvoke(myAction, DispatcherPriority.ApplicationIdle);
                     }
                     catch (Exception ex) { }
-                    //if (entity is DataRowView dataRowView)
-                    //{
-                    //    Dispatcher dispatcher = System.Windows.Application.Current.Dispatcher;
-                    //    Action myAction = delegate ()
-                    //    {
-                    //        ProcessRowEdit(dataRowView.Row);
-                    //    };
-                    //    dispatcher.BeginInvoke(myAction, DispatcherPriority.Background);
-                    //}
+
                 }
             }
         }
@@ -139,8 +115,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
         }
         private void RefreshDataTable(dynamic repository)
         {
-            var newDataTable = repository.GetAll();
-            Source = newDataTable;
+            Source = repository.GetAll();
         }
         private static int GetEntityId(T entity)
         {
