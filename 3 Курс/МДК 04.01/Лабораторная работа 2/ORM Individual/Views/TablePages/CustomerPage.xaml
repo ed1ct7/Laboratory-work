@@ -5,8 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:ORM_Individual.ViewModels.TableViewModels"
       xmlns:behaviors="clr-namespace:ORM_Individual.WPFControls.AttachedProperties"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="200"
+            Height="auto"
+      Width="auto"
       Title="CustomerPage">
 
     <Page.DataContext>
@@ -14,6 +17,10 @@
     </Page.DataContext>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
         <DataGrid ItemsSource="{Binding Source}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="True">
@@ -23,6 +30,26 @@
                 <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
                 <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
             </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="RowEditEnding">
+                    <i:InvokeCommandAction Command="{Binding RowEditEndingCommand}"
+                                 PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="Удалить строку"
+                                  Command="{Binding DeleteRowCommand,
+                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
+
         </DataGrid>
     </Grid>
 </Page>

@@ -8,6 +8,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
+            Height="auto"
+      Width="auto"
       Title="PositionPage">
 
     <Page.DataContext>
@@ -15,6 +17,10 @@
     </Page.DataContext>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
         <DataGrid ItemsSource="{Binding Source}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="True">
@@ -31,6 +37,20 @@
                                  PassEventArgsToCommand="True"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="Удалить строку"
+                                  Command="{Binding DeleteRowCommand,
+                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
+
         </DataGrid>
     </Grid>
 </Page>

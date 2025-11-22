@@ -48,10 +48,11 @@ namespace ORM_Individual.ViewModels
             string tableName = parameter.ToString();
             if (_pages.ContainsKey(tableName))
             {
+                var frame = new Frame();
+                frame.Navigate(_pages[tableName]);
+
                 var border = new Border
                 {
-                    Width = 500,
-                    Height = 2000,
                     Background = Brushes.LightBlue,
                     BorderBrush = Brushes.DarkBlue,
                     BorderThickness = new Thickness(1),
@@ -60,8 +61,6 @@ namespace ORM_Individual.ViewModels
 
                 DragBehavior.SetIsDraggable(border, true);
 
-                var frame = new Frame();
-                frame.Navigate(_pages[tableName]);
                 border.Child = frame;
 
                 Canvas.SetLeft(border, 50 + (TableFrames.Count * 20));
