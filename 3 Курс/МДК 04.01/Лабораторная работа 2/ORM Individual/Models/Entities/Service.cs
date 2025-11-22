@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ORM_Individual.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace ORM_Individual.Models.Entities;
 
-public partial class Service
+public partial class Service : IEntity
 {
     public int Id { get; set; }
 

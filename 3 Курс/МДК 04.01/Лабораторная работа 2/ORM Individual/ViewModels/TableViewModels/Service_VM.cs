@@ -7,6 +7,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
     {
         public Service_VM() : base(new ServiceRepository())
         {
+
         }
     }
 }

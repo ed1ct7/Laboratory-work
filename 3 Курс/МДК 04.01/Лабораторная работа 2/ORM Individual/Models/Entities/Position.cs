@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ORM_Individual.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace ORM_Individual.Models.Entities;
 
-public partial class Position
+public partial class Position : IEntity
 {
     public int Id { get; set; }
 
