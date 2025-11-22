@@ -35,7 +35,6 @@ namespace ORM_Individual.ViewModels.TableViewModels
 
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
 
-            SaveRowCommand = new RelayCommand(parameter => SaveRow(parameter as T));
             DeleteRowCommand = new RelayCommand(parameter => DeleteRow(parameter as T));
         }
         public void RowEditEnding(object parameter)
@@ -45,41 +44,17 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 e.Row.BindingGroup?.CommitEdit();
                 if (e.EditAction == DataGridEditAction.Commit && (e.Row.DataContext is IEntity entity))
                 {
-                    try
+                    foreach (IEntity row in Repository.GetAll())
                     {
-                        foreach (IEntity row in Repository.GetAll())
+                        if (row.Id == entity.Id)
                         {
-                            if(row.Id == entity.Id)
-                            {
-                                Repository.Update((T)entity);
-                                return;
-                            }
+                            Repository.Update((T)entity);
+                            return;
                         }
-                        Repository.Add((T)entity);
                     }
-                    catch (Exception ex) { }
-
+                    Repository.Add((T)entity);
                 }
             }
-        }
-        public void SaveRow(T? entity)
-        {
-            if (entity == null)
-            {
-                return;
-            }
-
-            var id = GetEntityId(entity);
-            if (id == 0 || Repository.FindById(id) == null)
-            {
-                Repository.Add(entity);
-            }
-            else
-            {
-                Repository.Update(entity);
-            }
-
-            LoadSource();
         }
         public void DeleteRow(T? entity)
         {
@@ -112,10 +87,6 @@ namespace ORM_Individual.ViewModels.TableViewModels
             var context = DatabaseContext.GetContext();
             context.Database.EnsureCreated();
             _databaseInitialized = true;
-        }
-        private void RefreshDataTable(dynamic repository)
-        {
-            Source = repository.GetAll();
         }
         private static int GetEntityId(T entity)
         {
