@@ -13,16 +13,15 @@ namespace ORM_Individual.ViewModels.TableViewModels
     public abstract class BaseTable_VM<T> : Base_VM where T : class
     {
         private static bool _databaseInitialized;
-        private ObservableCollection<T> _source = new();
+        public ObservableCollection<T> _source = new();
         protected IRepository<T> Repository { get; }
-        public ICommand CellEditEndingCommand { get; }
         public ICommand RowEditEndingCommand { get; }
         public ICommand SaveRowCommand { get; }
         public ICommand DeleteRowCommand { get; }
         public ObservableCollection<T> Source
         {
             get => _source;
-            private set
+            set
             {
                 _source = value;
                 OnPropertyChanged();
@@ -43,49 +42,48 @@ namespace ORM_Individual.ViewModels.TableViewModels
         {
             if (parameter is DataGridRowEditEndingEventArgs e)
             {
-                if (e.EditAction == DataGridEditAction.Commit)
+                if (e.EditAction == DataGridEditAction.Commit && (e.Row.DataContext is IEntity entity))
                 {
-                    if (e.Row.DataContext is DataRowView dataRowView)
+                    Source.Add((T)entity);
+
+                    try
                     {
-                        Dispatcher dispatcher = System.Windows.Application.Current.Dispatcher;
-                        Action myAction = delegate ()
-                        {
-                            ProcessRowEdit(dataRowView.Row);
-                        };
-                        dispatcher.BeginInvoke(myAction, DispatcherPriority.Background);
+                        Repository.Add((T)entity);
+                        //        dataRow["id"] = corent.Id;
+                        //bool isNewRow = e.Row. == DataRowState.Added ||
+                        //                dataRow.RowState == DataRowState.Detached ||
+                        //                dataRow.IsNull("id") ||
+                        //                dataRow["id"] == DBNull.Value ||
+                        //                Convert.ToInt32(dataRow["id"]) == 0;
+
+                        //    if (isNewRow && (entity is IEntity corent))
+                        //    {
+                        //        Repository.Add(entity);
+                        //        dataRow["id"] = corent.Id;
+                        //    }
+                        //    else
+                        //    {
+                        //        Repository.Update(entity);
+                        //    }
+                        //    Dispatcher dispatcher = System.Windows.Application.Current.Dispatcher;
+                        //    Action myAction = delegate ()
+                        //    {
+                        //        RefreshDataTable(Repository);
+                        //    };
+                        //    dispatcher.BeginInvoke(myAction, DispatcherPriority.ApplicationIdle);
                     }
+                    catch (Exception ex) { }
+                    //if (entity is DataRowView dataRowView)
+                    //{
+                    //    Dispatcher dispatcher = System.Windows.Application.Current.Dispatcher;
+                    //    Action myAction = delegate ()
+                    //    {
+                    //        ProcessRowEdit(dataRowView.Row);
+                    //    };
+                    //    dispatcher.BeginInvoke(myAction, DispatcherPriority.Background);
+                    //}
                 }
             }
-        }
-        private void ProcessRowEdit(DataRow dataRow)
-        {
-            try
-            {
-                bool isNewRow = dataRow.RowState == DataRowState.Added ||
-                                dataRow.RowState == DataRowState.Detached ||
-                                dataRow.IsNull("id") ||
-                                dataRow["id"] == DBNull.Value ||
-                                Convert.ToInt32(dataRow["id"]) == 0;
-
-                var entity = Repository.CreateInstanceFromDataRow(dataRow);
-
-                if (isNewRow && (entity is IEntity corent))
-                {
-                    Repository.Add(entity);
-                    dataRow["id"] = corent.Id;
-                }
-                else
-                {
-                    Repository.Update(entity);
-                }
-                Dispatcher dispatcher = System.Windows.Application.Current.Dispatcher;
-                Action myAction = delegate ()
-                {
-                    RefreshDataTable(Repository);
-                };
-                dispatcher.BeginInvoke(myAction, DispatcherPriority.ApplicationIdle);
-            }
-            catch (Exception ex) { }
         }
         public void SaveRow(T? entity)
         {

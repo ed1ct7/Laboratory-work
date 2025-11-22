@@ -18,9 +18,7 @@
             <DataGrid ItemsSource="{Binding Source}"
                       AutoGenerateColumns="False"
                       CanUserAddRows="True"
-                      MinColumnWidth="100"
-                      behaviors:DataGridCommands.RowEditEndingCommand="{Binding SaveRowCommand}"
-                      behaviors:DataGridCommands.DeleteCommand="{Binding DeleteRowCommand}">
+                      MinColumnWidth="100">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Order date" Binding="{Binding OrderDate}"/>
