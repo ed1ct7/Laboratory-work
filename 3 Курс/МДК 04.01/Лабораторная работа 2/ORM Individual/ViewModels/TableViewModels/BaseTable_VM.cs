@@ -42,6 +42,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
         {
             if (parameter is DataGridRowEditEndingEventArgs e)
             {
+                e.Row.BindingGroup?.CommitEdit();
                 if (e.EditAction == DataGridEditAction.Commit && (e.Row.DataContext is IEntity entity))
                 {
                     Source.Add((T)entity);
