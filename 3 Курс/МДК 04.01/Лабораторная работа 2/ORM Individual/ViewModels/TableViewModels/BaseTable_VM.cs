@@ -17,7 +17,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
         protected IRepository<T> Repository { get; }
         public ICommand RowEditEndingCommand { get; }
         public ICommand SaveRowCommand { get; }
-        public ICommand DeleteRowCommand { get; }
+        public ICommand DeleteRowsCommand { get; }
         public ICommand DeleteTableCommand { get; }
         public ObservableCollection<T> Source
         {
@@ -36,8 +36,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
 
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
             DeleteTableCommand = new RelayCommand(DeleteTable);
-
-            DeleteRowCommand = new RelayCommand(parameter => DeleteRow(parameter as T));
+            DeleteRowsCommand = new RelayCommand(DeleteRows);
         }
         private void DeleteTable(object parameter)
         {
@@ -62,22 +61,23 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 }
             }
         }
-        public void DeleteRow(T? entity)
+        public void DeleteRows(object parameter)
         {
-            if (entity == null)
+            if (parameter is KeyEventArgs e)
             {
-                return;
-            }
+                var grid = (DataGrid)e.Source;
 
-            var id = GetEntityId(entity);
-            if (id == 0)
-            {
-                Source.Remove(entity);
-                return;
-            }
+                var toDelete = grid.SelectedItems.Cast<T>().ToList();
 
-            Repository.Remove(id);
-            LoadSource();
+                foreach (T item in toDelete) { 
+                    Source.Remove(item);
+                    
+                    if(item is IEntity entity)
+                    {
+                        Repository.Remove(entity.Id);
+                    }
+                }
+            }
         }
         protected void LoadSource()
         {

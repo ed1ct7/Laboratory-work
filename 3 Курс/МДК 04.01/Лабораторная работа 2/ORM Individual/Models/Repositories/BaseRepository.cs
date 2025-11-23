@@ -48,7 +48,6 @@ namespace ORM_Individual.Models.Repositories
             {
                 return;
             }
-
             Set.Remove(entity);
             Context.SaveChanges();
         }
