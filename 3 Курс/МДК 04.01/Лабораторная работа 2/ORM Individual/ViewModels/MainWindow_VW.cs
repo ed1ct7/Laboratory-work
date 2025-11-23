@@ -25,17 +25,18 @@ namespace ORM_Individual.ViewModels
         public ICommand DeleteTableCommand { get; }
         public ObservableCollection<string> Tables { get; set; }
         public ObservableCollection<Border> TableFrames { get; set; }
-        private readonly Dictionary<string, object> _pages;
+
+        private readonly Dictionary<string, Func<Page>> _pages;
         public MainWindow_VW()
         {
-            _pages = new Dictionary<string, object> {
-            { "Component", new ComponentPage()},
-            { "ComponentType", new ComponentTypePage()},
-            { "Employee", new EmployeePage()},
-            { "Order", new OrderPage()},
-            { "Position", new PositionPage()},
-            { "Service", new ServicePage()},
-            { "Customer", new CustomerPage()}
+            _pages = new Dictionary<string, Func<Page>> {
+            { "Component",     () => new ComponentPage() },
+            { "ComponentType", () => new ComponentTypePage() },
+            { "Employee",      () => new EmployeePage() },
+            { "Order",         () => new OrderPage() },
+            { "Position",      () => new PositionPage() },
+            { "Service",       () => new ServicePage() },
+            { "Customer",      () => new CustomerPage() }
             };
 
             Tables = new ObservableCollection<string>(_pages.Keys);
@@ -48,6 +49,7 @@ namespace ORM_Individual.ViewModels
             if(parameter is Border border)
             {
                 TableFrames.Remove(border);
+                OnPropertyChanged(nameof(TableFrames));
             }
         }
         public void AddTable(object parameter)
@@ -57,8 +59,10 @@ namespace ORM_Individual.ViewModels
             string tableName = parameter.ToString();
             if (_pages.ContainsKey(tableName))
             {
+                var page = _pages[tableName]();
+
                 var frame = new Frame();
-                frame.Navigate(_pages[tableName]);
+                frame.Navigate(page);
 
                 var border = new Border
                 {
@@ -67,15 +71,16 @@ namespace ORM_Individual.ViewModels
                     BorderThickness = new Thickness(1),
                     CornerRadius = new CornerRadius(5)
                 };
-
-                var mi = new MenuItem();
-                mi.Header = "Delete Table";
-                mi.Command = DeleteTableCommand;
-                mi.CommandParameter = border;
-
+                var mi = new MenuItem
+                {
+                    Header = "Delete Table",
+                    Command = DeleteTableCommand,
+                    CommandParameter = border
+                };
                 var cm = new ContextMenu();
                 cm.Items.Add(mi);
                 border.ContextMenu = cm;
+
                 DragBehavior.SetIsDraggable(border, true);
 
                 border.Child = frame;
@@ -84,6 +89,7 @@ namespace ORM_Individual.ViewModels
                 Canvas.SetTop(border, 50 + (TableFrames.Count * 20));
 
                 TableFrames.Add(border);
+
                 OnPropertyChanged(nameof(TableFrames));
             }
         }
