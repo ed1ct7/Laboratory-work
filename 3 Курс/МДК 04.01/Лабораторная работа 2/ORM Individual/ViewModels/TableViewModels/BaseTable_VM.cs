@@ -18,6 +18,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public ICommand RowEditEndingCommand { get; }
         public ICommand SaveRowCommand { get; }
         public ICommand DeleteRowCommand { get; }
+        public ICommand DeleteTableCommand { get; }
         public ObservableCollection<T> Source
         {
             get => _source;
@@ -34,8 +35,13 @@ namespace ORM_Individual.ViewModels.TableViewModels
             LoadSource();
 
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
+            DeleteTableCommand = new RelayCommand(DeleteTable);
 
             DeleteRowCommand = new RelayCommand(parameter => DeleteRow(parameter as T));
+        }
+        private void DeleteTable(object parameter)
+        {
+
         }
         public void RowEditEnding(object parameter)
         {

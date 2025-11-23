@@ -24,7 +24,13 @@ namespace ORM_Individual.Models.Repositories
             }
 
             Set.Add(entity);
-            Context.SaveChanges();
+            try
+            {
+                Context.SaveChanges();
+            }
+            catch {
+            
+            }
             return entity;
         }
         public virtual T CreateInstance()

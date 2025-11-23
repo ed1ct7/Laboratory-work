@@ -6,8 +6,6 @@
       xmlns:viewModels="clr-namespace:ORM_Individual.ViewModels.TableViewModels"
       xmlns:behaviors="clr-namespace:ORM_Individual.WPFControls.AttachedProperties"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-      mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="1650"
       Height="auto"
       Width="auto"
       Title="OrderPage">
@@ -15,56 +13,56 @@
     <Page.DataContext>
         <viewModels:Order_VM />
     </Page.DataContext>
-
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto">
-            <DataGrid ItemsSource="{Binding Source}"
+        <TextBlock Text="Order Table" TextAlignment="Center" Background="Wheat" FontSize="14" FontWeight="Bold"></TextBlock>
+
+        <DataGrid ItemsSource="{Binding Source}"
                       AutoGenerateColumns="False"
+                  Grid.Row="1"
                       CanUserAddRows="True"
                       MinColumnWidth="100">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Order date" Binding="{Binding OrderDate}"/>
-                    <DataGridTextColumn Header="Completion" Binding="{Binding CompletionDate}"/>
-                    <DataGridTextColumn Header="Customer" Binding="{Binding CustomerId}"/>
-                    <DataGridTextColumn Header="Component 1" Binding="{Binding Component1Id}"/>
-                    <DataGridTextColumn Header="Component 2" Binding="{Binding Component2Id}"/>
-                    <DataGridTextColumn Header="Component 3" Binding="{Binding Component3Id}"/>
-                    <DataGridTextColumn Header="Prepayment" Binding="{Binding Prepayment}"/>
-                    <DataGridCheckBoxColumn Header="Is paid" Binding="{Binding IsPaid}"/>
-                    <DataGridCheckBoxColumn Header="Is completed" Binding="{Binding IsCompleted}"/>
-                    <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount}"/>
-                    <DataGridTextColumn Header="Warranty" Binding="{Binding TotalWarranty}"/>
-                    <DataGridTextColumn Header="Service 1" Binding="{Binding Service1Id}"/>
-                    <DataGridTextColumn Header="Service 2" Binding="{Binding Service2Id}"/>
-                    <DataGridTextColumn Header="Service 3" Binding="{Binding Service3Id}"/>
-                    <DataGridTextColumn Header="Employee" Binding="{Binding EmployeeId}"/>
-                </DataGrid.Columns>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="RowEditEnding">
-                        <i:InvokeCommandAction Command="{Binding RowEditEndingCommand}"
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Order date" Binding="{Binding OrderDate}"/>
+                <DataGridTextColumn Header="Completion" Binding="{Binding CompletionDate}"/>
+                <DataGridTextColumn Header="Customer" Binding="{Binding CustomerId}"/>
+                <DataGridTextColumn Header="Component 1" Binding="{Binding Component1Id}"/>
+                <DataGridTextColumn Header="Component 2" Binding="{Binding Component2Id}"/>
+                <DataGridTextColumn Header="Component 3" Binding="{Binding Component3Id}"/>
+                <DataGridTextColumn Header="Prepayment" Binding="{Binding Prepayment}"/>
+                <DataGridCheckBoxColumn Header="Is paid" Binding="{Binding IsPaid}"/>
+                <DataGridCheckBoxColumn Header="Is completed" Binding="{Binding IsCompleted}"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount}"/>
+                <DataGridTextColumn Header="Warranty" Binding="{Binding TotalWarranty}"/>
+                <DataGridTextColumn Header="Service 1" Binding="{Binding Service1Id}"/>
+                <DataGridTextColumn Header="Service 2" Binding="{Binding Service2Id}"/>
+                <DataGridTextColumn Header="Service 3" Binding="{Binding Service3Id}"/>
+                <DataGridTextColumn Header="Employee" Binding="{Binding EmployeeId}"/>
+            </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="RowEditEnding">
+                    <i:InvokeCommandAction Command="{Binding RowEditEndingCommand}"
                                  PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="ContextMenu">
-                            <Setter.Value>
-                                <ContextMenu>
-                                    <MenuItem Header="Удалить строку"
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="Удалить строку"
                                   Command="{Binding DeleteRowCommand,
                                             RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
-                                </ContextMenu>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.RowStyle>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
 
-            </DataGrid>
-        </ScrollViewer>
+        </DataGrid>
     </Grid>
 </Page>

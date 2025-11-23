@@ -18,12 +18,15 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <TextBlock Text="Component Table" TextAlignment="Center" Background="Wheat" FontSize="14" FontWeight="Bold"></TextBlock>
         <DataGrid ItemsSource="{Binding Source}"
                   AutoGenerateColumns="False"
-                  CanUserAddRows="True">
+                  CanUserAddRows="True"
+                  Grid.Row="1"
+                  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding TypeId}"/>

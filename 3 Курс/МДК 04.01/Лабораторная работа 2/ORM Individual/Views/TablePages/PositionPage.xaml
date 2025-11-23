@@ -5,10 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:ORM_Individual.ViewModels.TableViewModels"
       xmlns:behaviors="clr-namespace:ORM_Individual.WPFControls.AttachedProperties"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-      mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
-            Height="auto"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      Height="auto"
       Width="auto"
       Title="PositionPage">
 
@@ -18,11 +16,13 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <TextBlock Text="Position Table" TextAlignment="Center" Background="Wheat" FontSize="14" FontWeight="Bold"></TextBlock>
         <DataGrid ItemsSource="{Binding Source}"
                   AutoGenerateColumns="False"
+                  Grid.Row="1"
                   CanUserAddRows="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
