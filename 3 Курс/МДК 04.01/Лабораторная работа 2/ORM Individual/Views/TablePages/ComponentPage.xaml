@@ -44,20 +44,12 @@
                     <i:InvokeCommandAction Command="{Binding RowEditEndingCommand}"
                                  PassEventArgsToCommand="True"/>
                 </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <i:InvokeCommandAction
+                                Command="{Binding DeleteRowsCommand}"
+                                PassEventArgsToCommand="True" />
+                </i:EventTrigger>
             </i:Interaction.Triggers>
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="ContextMenu">
-                        <Setter.Value>
-                            <ContextMenu>
-                                <MenuItem Header="Удалить строку"
-                                  Command="{Binding DeleteRowCommand,
-                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
-                            </ContextMenu>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.RowStyle>
         </DataGrid>
     </Grid>
 </Page>

@@ -18,7 +18,6 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public ICommand RowEditEndingCommand { get; }
         public ICommand SaveRowCommand { get; }
         public ICommand DeleteRowsCommand { get; }
-        public ICommand DeleteTableCommand { get; }
         public ObservableCollection<T> Source
         {
             get => _source;
@@ -35,19 +34,14 @@ namespace ORM_Individual.ViewModels.TableViewModels
             LoadSource();
 
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
-            DeleteTableCommand = new RelayCommand(DeleteTable);
             DeleteRowsCommand = new RelayCommand(DeleteRows);
-        }
-        private void DeleteTable(object parameter)
-        {
-
         }
         public void RowEditEnding(object parameter)
         {
             if (parameter is DataGridRowEditEndingEventArgs e)
             {
                 e.Row.BindingGroup?.CommitEdit();
-                if (e.EditAction == DataGridEditAction.Commit && (e.Row.DataContext is IEntity entity))
+                if ((e.EditAction == DataGridEditAction.Commit) && (e.Row.DataContext is IEntity entity))
                 {
                     foreach (IEntity row in Repository.GetAll())
                     {
@@ -65,13 +59,14 @@ namespace ORM_Individual.ViewModels.TableViewModels
         {
             if (parameter is KeyEventArgs e)
             {
+                if (e.Key != Key.Delete)
+                    return;
+                if (e.OriginalSource is TextBox)
+                    return;
                 var grid = (DataGrid)e.Source;
-
                 var toDelete = grid.SelectedItems.Cast<T>().ToList();
-
                 foreach (T item in toDelete) { 
                     Source.Remove(item);
-                    
                     if(item is IEntity entity)
                     {
                         Repository.Remove(entity.Id);
@@ -85,30 +80,9 @@ namespace ORM_Individual.ViewModels.TableViewModels
         }
         private static void EnsureDatabase()
         {
-            if (_databaseInitialized)
-            {
-                return;
-            }
-
             var context = DatabaseContext.GetContext();
             context.Database.EnsureCreated();
             _databaseInitialized = true;
-        }
-        private static int GetEntityId(T entity)
-        {
-            var propertyInfo = entity.GetType().GetProperty("Id", BindingFlags.Public | BindingFlags.Instance);
-            if (propertyInfo == null)
-            {
-                throw new InvalidOperationException($"Type {entity.GetType().Name} must expose an Id property");
-            }
-
-            var value = propertyInfo.GetValue(entity);
-            if (value == null)
-            {
-                return 0;
-            }
-
-            return Convert.ToInt32(value);
         }
     }
 }
