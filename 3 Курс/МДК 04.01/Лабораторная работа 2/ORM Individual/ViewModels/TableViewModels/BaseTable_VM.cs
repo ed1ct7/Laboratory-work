@@ -43,17 +43,18 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 e.Row.BindingGroup?.CommitEdit();
                 if ((e.EditAction == DataGridEditAction.Commit) && (e.Row.DataContext is IEntity entity))
                 {
-                    foreach (IEntity row in Repository.GetAll())
-                    {
-                        if (row.Id == entity.Id)
-                        {
-                            Repository.Update((T)entity);
-                            return;
-                        }
-                    }
                     try
                     {
-                        Repository.Add((T)entity);
+                        foreach (IEntity row in Repository.GetAll())
+                        {
+                            if (row.Id == entity.Id)
+                            {
+                                Repository.Update((T)entity);
+                                return;
+                            }
+                        }
+
+                       Repository.Add((T)entity);
                     }
                     catch (Exception ex) {
                         LoadSource();
