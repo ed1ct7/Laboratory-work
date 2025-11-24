@@ -51,7 +51,13 @@ namespace ORM_Individual.ViewModels.TableViewModels
                             return;
                         }
                     }
-                    Repository.Add((T)entity);
+                    try
+                    {
+                        Repository.Add((T)entity);
+                    }
+                    catch (Exception ex) {
+                        LoadSource();
+                    }
                 }
             }
         }
