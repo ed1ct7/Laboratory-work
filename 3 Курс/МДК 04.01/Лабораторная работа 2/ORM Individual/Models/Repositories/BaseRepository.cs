@@ -62,5 +62,9 @@ namespace ORM_Individual.Models.Repositories
             return Set.Find(id);
         }
         public virtual T CreateInstanceFromDataRow(DataRow row) { throw new NotImplementedException(); }
+        public virtual ObservableCollection<T> UseQuery() {
+            
+            return new ObservableCollection<T>(Set.AsNoTracking().ToList());
+        }
     }
 }
