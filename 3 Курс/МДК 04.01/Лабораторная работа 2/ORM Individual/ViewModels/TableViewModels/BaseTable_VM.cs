@@ -1,5 +1,5 @@
 ﻿using ORM_Individual.Interfaces;
-using ORM_Individual.Models.Entities;
+using ORM_Individual.Models.Database;
 using ORM_Individual.ViewModels.Commands;
 using System.Collections.ObjectModel;
 using System.Data;

@@ -1,9 +1,9 @@
 ﻿using ORM_Individual.Interfaces;
-using ORM_Individual.Models.Entities;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Data;
+using ORM_Individual.Models.Database;
 
 namespace ORM_Individual.Models.Repositories
 {
@@ -66,5 +66,6 @@ namespace ORM_Individual.Models.Repositories
             
             return new ObservableCollection<T>(Set.AsNoTracking().ToList());
         }
+
     }
 }

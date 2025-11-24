@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using ORM_Individual.Models.Entities;
 
-namespace ORM_Individual.Models.Entities;
+namespace ORM_Individual.Models.Database;
 
 public partial class DatabaseContext : DbContext
 {
