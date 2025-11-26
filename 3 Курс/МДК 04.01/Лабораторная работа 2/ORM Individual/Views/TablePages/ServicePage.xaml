@@ -77,21 +77,60 @@
                           ExpandDirection="Right" 
                           Background="Wheat"
                           >
-                    <StackPanel Margin="1.2,0,0,0">
-                        <Border
+                    <Border
+                            Margin="1.2,0,0,0"
                             BorderBrush="Black"
                             BorderThickness="0.5"
                             >
-                            <TextBlock Text="Queries"
-                                       Width="100"
-                                       TextAlignment="Center"
-                                       Foreground="Black"
-                                       FontSize="14"
-                                       Background="White"
-                                       Margin="0,0,0,0"
-                                       />   
-                        </Border>
-                    </StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                Text="Queries"
+                                Width="100"
+                                TextAlignment="Center"
+                                Foreground="Black"
+                                FontSize="14"
+                                Background="White"
+                                Margin="0,0,0,0"
+                                Height="auto"
+                                />
+                            <Border
+                                   Grid.Row="1"
+                                   Grid.Column="0"
+                                   BorderBrush="Black"
+                                   BorderThickness="1"
+                                >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Margin="5"
+                                        Text="Id"
+                                        Foreground="Black"
+                                        FontSize="13"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        
+                    </Border>
                 </Expander>
             </Grid>
         </Border>
