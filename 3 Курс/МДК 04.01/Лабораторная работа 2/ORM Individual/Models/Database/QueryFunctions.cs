@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 //- на использование статистических функций(1 запрос),
 //- на соединение таблиц. 
 
-
 namespace ORM_Individual.Models.Database
 {
     public static class QueryFunctions
@@ -22,7 +21,6 @@ namespace ORM_Individual.Models.Database
                 where entity.Id > IdMoreThan && entity.Id < IdLessThan
                 select entity
                 );
-
-        }
+        } 
     }
 }

@@ -5,23 +5,35 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:ORM_Individual.ViewModels.TableViewModels"
       xmlns:behaviors="clr-namespace:ORM_Individual.WPFControls.AttachedProperties"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-            Height="auto"
+      Height="auto"
       Width="auto"
+      Background="Transparent"
       Title="ServicePage">
 
+    
     <Page.DataContext>
         <viewModels:Service_VM />
     </Page.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="23"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Service Table" TextAlignment="Center" Background="Wheat" FontSize="14" FontWeight="Bold"></TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Service Table" 
+                   TextAlignment="Center" 
+                   Background="Wheat"
+                   FontSize="14" 
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   ></TextBlock>
         <DataGrid 
             Grid.Row="1"
             ItemsSource="{Binding Source, Mode=TwoWay}"
@@ -52,5 +64,11 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
+        <Expander Grid.Column="1"
+              ExpandDirection="Right">
+            <StackPanel Margin="10">
+                <TextBlock Text="Содержимое панели" />
+            </StackPanel>
+        </Expander>
     </Grid>
 </Page>
