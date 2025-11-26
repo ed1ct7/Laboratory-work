@@ -66,8 +66,8 @@ namespace ORM_Individual.ViewModels
 
                 var border = new Border
                 {
-                    Background = Brushes.LightBlue,
-                    BorderBrush = Brushes.DarkBlue,
+                    Background = Brushes.Wheat,
+                    BorderBrush = Brushes.Black,
                     BorderThickness = new Thickness(1),
                     CornerRadius = new CornerRadius(5)
                 };
