@@ -6,6 +6,12 @@ using System.Data;
 using ORM_Individual.Models.Database;
 using ORM_Individual.ViewModels;
 
+//3.Сформулировать запросы для заданной предметной области:
+//-на выборку(2 запроса с различными условиями), 
+//-на использование статистических функций(1 запрос),
+//- на соединение таблиц. 
+
+
 namespace ORM_Individual.Models.Repositories
 {
     public abstract class BaseRepository<T> : IRepository<T> where T : class, IEntity

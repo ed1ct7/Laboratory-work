@@ -73,13 +73,21 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 if (e.OriginalSource is TextBox)
                     return;
                 var grid = (DataGrid)e.Source;
-                var toDelete = grid.SelectedItems.Cast<T>().ToList();
-                foreach (T item in toDelete) { 
-                    Source.Remove(item);
-                    if(item is IEntity entity)
+
+                try
+                {
+                    var toDelete = grid.SelectedItems.Cast<T>().ToList();
+                    foreach (T item in toDelete)
                     {
-                        Repository.Remove(entity.Id);
+                        Source.Remove(item);
+                        if (item is IEntity entity)
+                        {
+                            Repository.Remove(entity.Id);
+                        }
                     }
+                }
+                catch (Exception ex) {
+                    LoadSource();
                 }
             }
         }
