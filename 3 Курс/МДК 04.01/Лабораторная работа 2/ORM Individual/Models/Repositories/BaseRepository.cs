@@ -8,7 +8,7 @@ using ORM_Individual.ViewModels;
 
 namespace ORM_Individual.Models.Repositories
 {
-    public abstract class BaseRepository<T> : IRepository<T> where T : IEntity
+    public abstract class BaseRepository<T> : IRepository<T> where T : class, IEntity
     {
         protected DatabaseContext Context { get; }
         protected DbSet<T> Set { get; }
@@ -71,20 +71,13 @@ namespace ORM_Individual.Models.Repositories
         }
         public  ObservableCollection<T> IdQueries(ObservableCollection<T> entities, int IdMoreThan, int IdLessThan)
         {
-            if (entities is ObservableCollection<IEntity> values)
-            {
-                return new ObservableCollection<T>(
-                    (IEnumerable<T>)
-                    (
-                    from entity in values
-                    where entity.Id > IdMoreThan && entity.Id < IdLessThan
-                    select entity)
-                    );
-            }
-            else
-            {
-                return entities;
-            }
+            return new ObservableCollection<T>(
+                (IEnumerable<T>)
+                (
+                from entity in entities
+                where entity.Id >= IdMoreThan && entity.Id <= IdLessThan
+                select entity)
+                );
         }
         #endregion
     }

@@ -108,6 +108,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
             else
             {
                 IsIdQuery = false;
+                LoadSource();
             }
         }
 
