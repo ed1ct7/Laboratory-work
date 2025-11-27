@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ORM_Individual.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : IEntity
     {
         ObservableCollection<T> GetAll();
         T Add(T entity);

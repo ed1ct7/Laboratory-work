@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public abstract class BaseTable_VM<T> : Base_VM where T : class
+    public abstract class BaseTable_VM<T> : Base_VM where T : IEntity
     {
         private static bool _databaseInitialized;
         public ObservableCollection<T> _source = new();

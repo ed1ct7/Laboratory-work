@@ -8,7 +8,7 @@ using ORM_Individual.ViewModels;
 
 namespace ORM_Individual.Models.Repositories
 {
-    public abstract class BaseRepository<T> : IRepository<T> where T : class
+    public abstract class BaseRepository<T> : IRepository<T> where T : IEntity
     {
         protected DatabaseContext Context { get; }
         protected DbSet<T> Set { get; }
