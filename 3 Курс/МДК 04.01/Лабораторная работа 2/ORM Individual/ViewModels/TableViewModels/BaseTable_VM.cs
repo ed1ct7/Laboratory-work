@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
-    public abstract class BaseTable_VM<T> : Base_VM where T : IEntity
+    public abstract class BaseTable_VM<T> : Base_VM, IDisposable where T : IEntity
     {
         private static bool _databaseInitialized;
         public ObservableCollection<T> _source = new();
@@ -124,6 +124,12 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 Source = Repository.IdQueries(Source, IdFrom, IdTo); 
             }
         }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
         private int _idFrom;
         public int IdFrom
         {

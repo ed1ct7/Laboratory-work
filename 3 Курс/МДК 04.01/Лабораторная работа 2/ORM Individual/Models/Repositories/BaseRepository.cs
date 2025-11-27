@@ -9,7 +9,7 @@ using ORM_Individual.ViewModels;
 //3.Сформулировать запросы для заданной предметной области:
 //-на выборку(2 запроса с различными условиями), 
 //-на использование статистических функций(1 запрос),
-//- на соединение таблиц. 
+//-на соединение таблиц. 
 
 
 namespace ORM_Individual.Models.Repositories
@@ -71,10 +71,6 @@ namespace ORM_Individual.Models.Repositories
         public virtual T CreateInstanceFromDataRow(DataRow row) { throw new NotImplementedException(); }
 
         #region Queries
-        public virtual ObservableCollection<T> UseQuery() {
-            
-            return new ObservableCollection<T>(Set.AsNoTracking().ToList());
-        }
         public  ObservableCollection<T> IdQueries(ObservableCollection<T> entities, int IdMoreThan, int IdLessThan)
         {
             return new ObservableCollection<T>(

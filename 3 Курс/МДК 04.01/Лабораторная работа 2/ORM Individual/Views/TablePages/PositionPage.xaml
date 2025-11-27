@@ -141,13 +141,9 @@
                                         Text="Salary"
                                         Style="{StaticResource QueryLabelTextBlockStyle}" />
                                     <Button
-                                        Grid.Column="1"
-                                        Content="+"
-                                        Style="{StaticResource QueryAddButtonStyle}"
-                                        Command="{Binding UseIdQueryCommand}" />
-                                    <Button
                                         Grid.Row="1"
                                         Style="{StaticResource QueryAddButtonStyle}"
+                                        Command="{Binding MaxSalaryQueryCommand}"
                                         FontSize="13"
                                         Background="White"
                                         Grid.ColumnSpan="2"
@@ -156,6 +152,7 @@
                                     <Button
                                         Grid.Row="2"
                                         Style="{StaticResource QueryAddButtonStyle}"
+                                        Command="{Binding MinSalaryQueryCommand}"
                                         FontSize="13"
                                         Background="White"
                                         Grid.ColumnSpan="2"
