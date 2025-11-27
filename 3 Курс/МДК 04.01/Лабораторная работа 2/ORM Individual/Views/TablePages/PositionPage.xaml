@@ -92,8 +92,6 @@
                                         <RowDefinition/>
                                         <RowDefinition/>
                                         <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
@@ -124,8 +122,48 @@
                                         Text="{Binding IdTo, Mode=TwoWay}" />
                                 </Grid>
                             </Border>
+                            <Border
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   Style="{StaticResource QueryGroupBorderStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Text="Salary"
+                                        Style="{StaticResource QueryLabelTextBlockStyle}" />
+                                    <Button
+                                        Grid.Column="1"
+                                        Content="+"
+                                        Style="{StaticResource QueryAddButtonStyle}"
+                                        Command="{Binding UseIdQueryCommand}" />
+                                    <Button
+                                        Grid.Row="1"
+                                        Style="{StaticResource QueryAddButtonStyle}"
+                                        FontSize="13"
+                                        Background="White"
+                                        Grid.ColumnSpan="2"
+                                        Content="Max"
+                                        />
+                                    <Button
+                                        Grid.Row="2"
+                                        Style="{StaticResource QueryAddButtonStyle}"
+                                        FontSize="13"
+                                        Background="White"
+                                        Grid.ColumnSpan="2"
+                                        Content="Min"
+                                        />
+                                </Grid>
+                            </Border>
                         </Grid>
-
                     </Border>
                 </Expander>
             </Grid>
