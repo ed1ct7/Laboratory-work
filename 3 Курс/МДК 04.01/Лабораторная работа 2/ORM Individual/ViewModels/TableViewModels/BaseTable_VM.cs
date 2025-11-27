@@ -104,7 +104,6 @@ namespace ORM_Individual.ViewModels.TableViewModels
 
         #region Queries
         public ICommand UseIdQueryCommand { get; }
-
         public bool IsIdQuery;
         private void UserIdQuery(object parameter)
         {
@@ -119,14 +118,12 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 LoadSource();
             }
         }
-
         private void IdQuerySelect()
         {
             if (IsIdQuery == true) {
                 Source = Repository.IdQueries(Source, IdFrom, IdTo); 
             }
         }
-
         private int _idFrom;
         public int IdFrom
         {
@@ -136,7 +133,6 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 IdQuerySelect();
             }
         }
-
         private int _idTo;
         public int IdTo
         {
