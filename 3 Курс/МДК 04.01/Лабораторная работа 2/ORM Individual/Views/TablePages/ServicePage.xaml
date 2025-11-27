@@ -126,6 +126,38 @@
                                         Text="Id"
                                         Foreground="Black"
                                         FontSize="13"/>
+                                    <Button
+                                        Grid.Column="1"
+                                        Background="Transparent"
+                                        Foreground="Black"
+                                        Content="+"
+                                        FontSize="16"
+                                        Command="{Binding UseIdQueryCommand}"
+                                        />
+                                    <TextBlock
+                                        TextAlignment="Right"
+                                        Grid.Row="1"
+                                        Margin="5"
+                                        Text="from"
+                                        Foreground="Black"
+                                        FontSize="13"/>
+                                    <TextBox
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding IdFrom, Mode=TwoWay}"
+                                        />
+                                    <TextBlock
+                                        TextAlignment="Right"
+                                        Grid.Row="2"
+                                        Margin="5"
+                                        Text="to"
+                                        Foreground="Black"
+                                        FontSize="13"/>
+                                    <TextBox
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Text="{Binding IdTo, Mode=TwoWay}"
+                                        />
                                 </Grid>
                             </Border>
                         </Grid>

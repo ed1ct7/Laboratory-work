@@ -1,4 +1,5 @@
-﻿using ORM_Individual.Interfaces;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using ORM_Individual.Interfaces;
 using ORM_Individual.Models.Database;
 using ORM_Individual.ViewModels.Commands;
 using System.Collections.ObjectModel;
@@ -32,9 +33,10 @@ namespace ORM_Individual.ViewModels.TableViewModels
             Repository = repository ?? throw new ArgumentNullException(nameof(repository));
             EnsureDatabase();
             LoadSource();
-
+            IsIdQuery = false;
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
             DeleteRowsCommand = new RelayCommand(DeleteRows);
+            UseIdQueryCommand = new RelayCommand(UserIdQuery);
         }
         public void RowEditEnding(object parameter)
         {
@@ -91,5 +93,52 @@ namespace ORM_Individual.ViewModels.TableViewModels
             context.Database.EnsureCreated();
             _databaseInitialized = true;
         }
+
+        #region Queries
+        public ICommand UseIdQueryCommand { get; }
+
+        public bool IsIdQuery;
+        private void UserIdQuery(object parameter)
+        {
+            if(IsIdQuery == false)
+            {
+                IsIdQuery = true;
+                IdQuerySelect();
+            }
+            else
+            {
+                IsIdQuery = false;
+            }
+        }
+
+        private void IdQuerySelect()
+        {
+            if (IsIdQuery == true) {
+                Source = Repository.IdQueries(Source, IdFrom, IdTo); 
+            }
+        }
+
+        private int _idFrom;
+        public int IdFrom
+        {
+            get { return _idFrom; }
+            set { _idFrom = value;
+                OnPropertyChanged();
+                IdQuerySelect();
+            }
+        }
+
+        private int _idTo;
+        public int IdTo
+        {
+            get { return _idTo; }
+            set
+            {
+                _idTo = value;
+                OnPropertyChanged();
+                IdQuerySelect();
+            }
+        }
+        #endregion
     }
 }

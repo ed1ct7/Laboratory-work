@@ -16,6 +16,7 @@ namespace ORM_Individual.Interfaces
         void Remove(int id);
         T? FindById(int id);
         T CreateInstanceFromDataRow(DataRow dataRow);
+        ObservableCollection<T> IdQueries(ObservableCollection<T> entities, int IdMoreThan, int IdLessThan);
     }
     public interface IEntity
     {

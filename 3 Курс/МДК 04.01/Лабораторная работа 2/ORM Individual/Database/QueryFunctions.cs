@@ -14,13 +14,6 @@ namespace ORM_Individual.Models.Database
 {
     public static class QueryFunctions
     {
-        public static ObservableCollection<IEntity> idQueries(ObservableCollection<IEntity> entities, int IdMoreThan, int IdLessThan)
-        {
-            return new ObservableCollection<IEntity>(
-                from entity in entities
-                where entity.Id > IdMoreThan && entity.Id < IdLessThan
-                select entity
-                );
-        } 
+
     }
 }
