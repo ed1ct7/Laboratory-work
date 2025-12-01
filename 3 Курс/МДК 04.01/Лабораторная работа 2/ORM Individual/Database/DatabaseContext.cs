@@ -131,6 +131,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Address).HasColumnName("address");
             entity.Property(e => e.FullName).HasColumnName("full_name");
             entity.Property(e => e.Phone).HasColumnName("phone");
+            entity.Property(e => e.RegistrationDate).HasColumnName("registration_date");
         });
 
         modelBuilder.Entity<Employee>(entity =>
