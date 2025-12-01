@@ -1,4 +1,4 @@
-<Page x:Class="ORM_Individual.Views.TablePages.EmployeePage"
+<Page x:Class="ORM_Individual.Views.TablePages.CrossedPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,10 +10,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Height="auto"
       Width="auto"
-      Title="EmployeePage">
+      Title="CrossedPage">
 
     <Page.DataContext>
-        <viewModels:Employee_VM />
+        <viewModels:Component_VM />
     </Page.DataContext>
 
     <Grid>
@@ -21,7 +21,7 @@
             <RowDefinition Height="23"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Employee Table"
+        <TextBlock Text="Crossed Table"
                    Grid.ColumnSpan="2"
                    Style="{StaticResource PageHeaderTextBlockStyle}" />
 
@@ -37,19 +37,9 @@
                     Grid.Column="0"
                     ItemsSource="{Binding Source, Mode=TwoWay}"
                     Style="{StaticResource TableDataGridStyle}"
-                    x:Name="DataGridPar"
-                    
+                    AutoGenerateColumns="True"
                     >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                        <DataGridTextColumn Header="Full name" Binding="{Binding FullName}"/>
-                        <DataGridTextColumn Header="Age" Binding="{Binding Age}"/>
-                        <DataGridCheckBoxColumn Header="Gender" Binding="{Binding Gender}"/>
-                        <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
-                        <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
-                        <DataGridTextColumn Header="Passport" Binding="{Binding PassportData}"/>
-                        <DataGridTextColumn Header="Position" Binding="{Binding PositionId}"/>
-                    </DataGrid.Columns>
+
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="RowEditEnding">
                             <i:InvokeCommandAction Command="{Binding RowEditEndingCommand}"
@@ -128,30 +118,6 @@
                                         Grid.Row="2"
                                         Grid.Column="1"
                                         Text="{Binding IdTo, Mode=TwoWay}" />
-                                </Grid>
-                            </Border>
-                            <Border
-                                   Grid.Row="2"
-                                   Grid.Column="0"
-                                   Style="{StaticResource QueryGroupBorderStyle}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Button
-                                        Grid.Row="2"
-                                        Grid.ColumnSpan="2"
-                                        Content="Join by salary"
-                                        Style="{StaticResource QueryAddButtonStyle}"
-                                        FontSize="12"
-                                        CommandParameter="{Binding ElementName=DataGridPar}" 
-                                        Command="{Binding PositionSalaryQueryCommand}" />
                                 </Grid>
                             </Border>
                         </Grid>

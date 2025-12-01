@@ -1,6 +1,9 @@
 ﻿using ORM_Individual.Models.Entities;
 using ORM_Individual.Models.Repositories;
 using ORM_Individual.ViewModels.Commands;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ORM_Individual.ViewModels.TableViewModels
@@ -17,7 +20,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public Employee_VM() : base(new EmployeeRepository())
         {
             _employeeRepository = (EmployeeRepository)Repository;
-            PositionSalaryQueryCommand = new RelayCommand(TogglePositionSalaryQuery);
+            PositionSalaryQueryCommand = new RelayCommand(PositionSalaryQuery);
         }
 
         public decimal PositionSalaryFrom
@@ -31,17 +34,46 @@ namespace ORM_Individual.ViewModels.TableViewModels
             }
         }
 
-        private void TogglePositionSalaryQuery(object parameter)
+        public virtual ObservableCollection<Employee> Source
+        {
+            get => _source;
+            set
+            {
+                _source = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+        public DataGridColumn[] temp;
+
+        private void PositionSalaryQuery(object parameter)
         {
             _usePositionSalaryQuery = !_usePositionSalaryQuery;
+            var dataGrid = parameter as DataGrid;
 
+            if (temp == null)
+            {
+                temp = new DataGridColumn[8];
+                dataGrid.Columns.CopyTo(temp,0);
+            }
             if (_usePositionSalaryQuery)
             {
+                dataGrid.AutoGenerateColumns = true;
+                dataGrid.CanUserAddRows = false;
+                dataGrid.CanUserDeleteRows = false;
+                
+                dataGrid.Columns.Clear();
                 ApplyPositionSalaryQuery();
             }
             else
             {
                 LoadSource();
+                dataGrid.AutoGenerateColumns = false;
+                foreach (var column in temp)
+                {
+                    dataGrid.Columns.Add(column);
+                }
             }
         }
 
@@ -49,6 +81,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
         {
             if (_usePositionSalaryQuery)
             {
+                var temp = Source;
                 Source = _employeeRepository.FilterByPositionSalary(Source, PositionSalaryFrom);
             }
         }

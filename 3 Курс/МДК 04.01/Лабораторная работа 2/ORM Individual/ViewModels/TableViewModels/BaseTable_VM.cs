@@ -19,7 +19,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public ICommand RowEditEndingCommand { get; }
         public ICommand SaveRowCommand { get; }
         public ICommand DeleteRowsCommand { get; }
-        public ObservableCollection<T> Source
+        public virtual ObservableCollection<T> Source
         {
             get => _source;
             set

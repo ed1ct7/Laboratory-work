@@ -20,7 +20,6 @@ namespace ORM_Individual.Models.Repositories
             return new ObservableCollection<Employee>(
                 from employee in entities
                 join position in Context.Positions on employee.PositionId equals position.Id
-                where position.Salary >= salaryFrom
                 select employee
             );
         }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace ORM_Individual.Interfaces
 {
@@ -21,5 +22,9 @@ namespace ORM_Individual.Interfaces
     public interface IEntity
     {
         public int Id { get; set; }
+    }
+    public interface ViewCodeBehind
+    {
+        public Control GetDataGrid();
     }
 }
