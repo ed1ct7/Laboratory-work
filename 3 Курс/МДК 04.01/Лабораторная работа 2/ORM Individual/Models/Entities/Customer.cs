@@ -14,7 +14,5 @@ public partial class Customer : IEntity
 
     public string? Phone { get; set; }
 
-    public DateTime? RegistrationDate { get; set; }
-
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
