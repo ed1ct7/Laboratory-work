@@ -127,6 +127,41 @@
                                         Text="{Binding IdTo, Mode=TwoWay}" />
                                 </Grid>
                             </Border>
+                            <Border
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   Style="{StaticResource QueryGroupBorderStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Text="Position salary"
+                                        Style="{StaticResource QueryLabelTextBlockStyle}" />
+                                    <TextBlock
+                                        TextAlignment="Right"
+                                        Grid.Row="1"
+                                        Text="from"
+                                        Style="{StaticResource QueryLabelTextBlockStyle}" />
+                                    <TextBox
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding PositionSalaryFrom, Mode=TwoWay}" />
+                                    <Button
+                                        Grid.Row="2"
+                                        Grid.ColumnSpan="2"
+                                        Content="Join by salary"
+                                        Style="{StaticResource QueryAddButtonStyle}"
+                                        Command="{Binding PositionSalaryQueryCommand}" />
+                                </Grid>
+                            </Border>
                         </Grid>
 
                     </Border>

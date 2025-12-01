@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ORM_Individual.Models.Entities;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ORM_Individual.Models.Repositories
 {
@@ -12,6 +13,16 @@ namespace ORM_Individual.Models.Repositories
                 Set.Include(e => e.Position)
                    .AsNoTracking()
                    .ToList());
+        }
+
+        public ObservableCollection<Employee> FilterByPositionSalary(ObservableCollection<Employee> entities, decimal salaryFrom)
+        {
+            return new ObservableCollection<Employee>(
+                from employee in entities
+                join position in Context.Positions on employee.PositionId equals position.Id
+                where position.Salary >= salaryFrom
+                select employee
+            );
         }
     }
 }
