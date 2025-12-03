@@ -22,7 +22,9 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Order Table"
                    Grid.ColumnSpan="2"
-                   Style="{StaticResource PageHeaderTextBlockStyle}" />
+                   Style="{StaticResource PageHeaderTextBlockStyle}" 
+                   Background="CadetBlue"
+                   />
 
         <Border Grid.Row="1"
                 Style="{StaticResource TableBorderStyle}">
