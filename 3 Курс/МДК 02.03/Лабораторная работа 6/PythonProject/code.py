@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
+import argparse
 import random
+import sys
 import tkinter as tk
 from tkinter import messagebox
-
-import matplotlib
-matplotlib.use("TkAgg")
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import matplotlib.pyplot as plt
 
 EPS = 1e-9
 
@@ -359,44 +356,81 @@ class MatrixGameApp:
 
     def show_graphical_solution_2x2(self, matrix, row_labels, col_labels, p1, p2, q1, q2, value):
         """
-        Окно с графическим методом для 2×2:
-        по оси X — q = P(первый столбец),
-        по оси Y — выигрыш A при выборе каждой строки.
+        Окно с графическим методом для 2×2 без внешних зависимостей.
+        Вместо matplotlib используется встроенный Canvas, поэтому
+        приложение работает даже в окружениях без дополнительных
+        библиотек.
         """
         a11, a12 = matrix[0]
         a21, a22 = matrix[1]
 
-        # Значения q от 0 до 1
         q_vals = [i / 100 for i in range(101)]
         line1 = [q * a11 + (1 - q) * a12 for q in q_vals]
         line2 = [q * a21 + (1 - q) * a22 for q in q_vals]
 
+        min_val = min(line1 + line2)
+        max_val = max(line1 + line2)
+        if abs(max_val - min_val) < EPS:
+            max_val = min_val + 1.0
+
         win = tk.Toplevel(self.root)
         win.title("Графический метод решения 2×2 игры")
 
-        fig, ax = plt.subplots(figsize=(5, 4))
-        ax.plot(q_vals, line1, label=f"Строка R{row_labels[0]}")
-        ax.plot(q_vals, line2, label=f"Строка R{row_labels[1]}")
+        width, height = 650, 420
+        margin = 60
+        canvas = tk.Canvas(win, width=width, height=height, bg="white")
+        canvas.pack(fill="both", expand=True)
 
-        # Отмечаем оптимальную точку (q*, v)
+        def to_canvas(q, payoff):
+            x = margin + q * (width - 2 * margin)
+            y_ratio = (payoff - min_val) / (max_val - min_val)
+            y = height - margin - y_ratio * (height - 2 * margin)
+            return x, y
+
+        # Оси
+        canvas.create_line(margin, height - margin, width - margin, height - margin)
+        canvas.create_line(margin, margin, margin, height - margin)
+        canvas.create_text(width - margin + 20, height - margin + 10, text="q")
+        canvas.create_text(margin - 20, margin - 20, text="Выигрыш A")
+
+        # Подписи оси X
+        for step in range(0, 11):
+            q = step / 10
+            x, y = to_canvas(q, min_val)
+            canvas.create_line(x, y, x, y + 5)
+            canvas.create_text(x, y + 15, text=f"{q:.1f}")
+
+        # Подписи оси Y
+        for frac in [0.0, 0.25, 0.5, 0.75, 1.0]:
+            payoff = min_val + frac * (max_val - min_val)
+            x, y = to_canvas(0, payoff)
+            canvas.create_line(x - 5, y, x + 5, y)
+            canvas.create_text(x - 30, y, text=f"{payoff:.2f}")
+
+        # Линии выигрышей
+        points1 = [to_canvas(q, v) for q, v in zip(q_vals, line1)]
+        points2 = [to_canvas(q, v) for q, v in zip(q_vals, line2)]
+        canvas.create_line(points1, fill="#1f77b4", width=2, smooth=True)
+        canvas.create_line(points2, fill="#ff7f0e", width=2, smooth=True)
+
+        # Точки в легенде
+        canvas.create_rectangle(width - 190, margin - 35, width - 20, margin + 15, outline="#444")
+        canvas.create_line(width - 180, margin - 20, width - 150, margin - 20, fill="#1f77b4", width=2)
+        canvas.create_text(width - 40, margin - 20, text=f"Строка R{row_labels[0]}", anchor="e")
+        canvas.create_line(width - 180, margin, width - 150, margin, fill="#ff7f0e", width=2)
+        canvas.create_text(width - 40, margin, text=f"Строка R{row_labels[1]}", anchor="e")
+
+        # Оптимальная точка
         if 0 - EPS <= q1 <= 1 + EPS:
-            ax.plot([q1], [value], "o")
-            ax.annotate(
-                f"q* = {q1:.2f}\nv = {value:.2f}",
-                xy=(q1, value),
-                xytext=(min(q1 + 0.1, 1.0), value),
-                arrowprops=dict(arrowstyle="->"),
+            x, y = to_canvas(q1, value)
+            canvas.create_oval(x - 4, y - 4, x + 4, y + 4, fill="#2ca02c", outline="")
+            canvas.create_text(
+                min(x + 80, width - margin),
+                y - 15,
+                text=f"q* = {q1:.2f}\nv = {value:.2f}",
+                anchor="w",
             )
-
-        ax.set_xlabel(f"q = P(C{col_labels[0]})")
-        ax.set_ylabel("Выигрыш игрока A")
-        ax.set_title("Графический метод (зависимость от стратегии B)")
-        ax.grid(True)
-        ax.legend()
-
-        canvas = FigureCanvasTkAgg(fig, master=win)
-        canvas.draw()
-        canvas.get_tk_widget().pack(fill="both", expand=True)
+            canvas.create_line(x, y, min(x + 50, width - margin), y - 10, arrow=tk.LAST, fill="#2ca02c")
 
         self.log("Открылось окно с графиком (графический метод решения 2×2 игры).")
 
@@ -513,7 +547,37 @@ class MatrixGameApp:
             )
 
 
+def run_self_test():
+    """Быстрая проверка зависимостей и базовых функций без запуска GUI."""
+    sample = [[3, 1], [0, 2]]
+    row_mins, col_maxs, maximin, minimax, saddles = find_saddle_points(sample)
+    assert row_mins == [1, 0]
+    assert col_maxs == [3, 2]
+    assert abs(maximin - 1) < EPS
+    assert abs(minimax - 2) < EPS
+    assert saddles == []
+    result = solve_2x2_mixed(sample)
+    assert result is not None
+    print("Самопроверка пройдена: основные функции работают.")
+
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Приложение для решения матричных игр M×N. \n"
+        "Используйте флаг --self-test для проверки зависимостей без запуска графики.",
+        formatter_class=argparse.RawTextHelpFormatter,
+    )
+    parser.add_argument(
+        "--self-test",
+        action="store_true",
+        help="Запустить встроенный тест без открытия окон",
+    )
+    args = parser.parse_args()
+
+    if args.self_test:
+        run_self_test()
+        sys.exit(0)
+
     root = tk.Tk()
     app = MatrixGameApp(root)
     root.mainloop()
