@@ -1,0 +1,33 @@
+﻿<Window x:Class="LoginProject.Views.RegistrationScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ViewModels"
+        mc:Ignorable="d"
+        Title="RegistrationScreen" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:VM_RegistrationScreen/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="UserName"></TextBlock>
+            <TextBox Text="{Binding UserName}"></TextBox>
+
+            <TextBlock Text="Name"></TextBlock>
+            <TextBox Text="{Binding Name}"></TextBox>
+
+            <TextBlock Text="SecondName"></TextBlock>
+            <TextBox Text="{Binding SecondName}"></TextBox>
+
+            <TextBlock Text="BornDate"></TextBlock>
+            <TextBox Text="{Binding BornDate}"></TextBox>
+
+            <TextBlock Text="Password"></TextBlock>
+            <TextBox Text="{Binding ReliablePassword}"></TextBox>
+            <TextBlock Text="{Binding PasswordError}"></TextBlock>
+
+            <Button Content="Registre" Command="{Binding RegistrateCommand}"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
