@@ -79,8 +79,6 @@ dist/
 
 
 ### Database ###
-*.db
-*.sqlite3
 
 
 ### Logs ###
@@ -206,8 +204,6 @@ dist/
 *.egg-info/
 
 ### Database ###
-*.db
-*.sqlite3
 
 ### Logs ###
 *.log

@@ -1,0 +1,25 @@
+﻿<Page x:Class="ORM_DatabaseFirest.Views.Pages.AuthView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ORM_DatabaseFirest.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AuthView">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0" ItemsSource="{Binding AuthsData}"></DataGrid>
+        <!--<StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Название"/>
+            <TextBox Text="{Binding AuthId}" Width="75"/>
+            <TextBlock Text="Id книги"/>
+            <TextBox Text="{Binding BooksId}" Width="75"/>
+            <Button Command="{Binding AddDataCommand}" Content="Добавить"/>
+        </StackPanel>-->
+    </Grid>
+</Page>
