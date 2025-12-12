@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
-# ===== ЛР7 (2 часть) Вариант 6 — одним кодом =====
 try:
     # 1) Чтение данных
     df = pd.read_csv("dataset_ML.csv", sep=";")
