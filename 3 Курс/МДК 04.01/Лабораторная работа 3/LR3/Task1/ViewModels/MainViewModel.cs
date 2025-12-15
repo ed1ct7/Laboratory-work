@@ -17,7 +17,7 @@ namespace Task1.ViewModels
 
         public MainViewModel()
         {
-            myCollection = new MyMusic();
+            myCollection = new Service();
             myCollection.Tracks = new Track[3];
             myCollection.Tracks[0] = new Track()
             {
@@ -53,7 +53,6 @@ namespace Task1.ViewModels
             }
             
         }
-        
         #endregion
     }
 }
