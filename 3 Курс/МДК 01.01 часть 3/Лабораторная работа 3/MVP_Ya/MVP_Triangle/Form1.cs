@@ -73,5 +73,10 @@ namespace MVP_Triangle
         {
             if (SetC != null) SetC(this, EventArgs.Empty);
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
