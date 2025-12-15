@@ -58,7 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Repository\MyMusicRepository.cs" />
+    <Compile Include="Models\Repository\ServiceRepository.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Task2.cs" />
     <Compile Include="ViewModels\Commands\RelayCommand.cs" />
@@ -78,7 +78,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Entity\MyMusic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

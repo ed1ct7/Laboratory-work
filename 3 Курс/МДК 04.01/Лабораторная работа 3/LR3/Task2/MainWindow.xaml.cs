@@ -18,9 +18,8 @@ namespace Task2
 
                 if (countries != null && countries.Count > 0)
                 {
-                    Class1 russia = countries[0]; // Берем первую страну из массива
+                    Class1 russia = countries[0];
 
-                    // Выводим информацию
                     string message = $"Страна: {russia.name.common}\n" +
                                     $"Официальное название: {russia.name.official}\n" +
                                     $"Столица: {russia.capital[0]}\n" +
@@ -28,16 +27,16 @@ namespace Task2
                                     $"Площадь: {russia.area} км²\n" +
                                     $"Регион: {russia.region}";
 
-                    MessageBox.Show(message, "Информация о стране");
+                    box.Text = message;
                 }
                 else
                 {
-                    MessageBox.Show("Данные о стране не найдены!", "Ошибка");
+                    box.Text = "Данные о стране не найдены.";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка");
+                box.Text = $"Не удалось загрузить данные: {ex.Message}";
             }
         }
 
