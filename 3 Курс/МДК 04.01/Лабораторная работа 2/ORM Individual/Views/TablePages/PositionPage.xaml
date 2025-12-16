@@ -184,7 +184,10 @@
                                         Grid.Row="1"
                                         Grid.ColumnSpan="2"
                                         Background="White"
-                                        Text="{Binding Serialised}"></TextBlock>
+                                        TextWrapping="Wrap"
+                                        Text="{Binding Serialised}"
+                                        Width="550"
+                                        />
                                 </Grid>
                             </Border>
                         </Grid>
