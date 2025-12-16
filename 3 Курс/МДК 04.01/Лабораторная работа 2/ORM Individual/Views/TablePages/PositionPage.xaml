@@ -162,6 +162,31 @@
                                         />
                                 </Grid>
                             </Border>
+                            <Border
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Style="{StaticResource QueryGroupBorderStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Text="Serialised"
+                                        Style="{StaticResource QueryLabelTextBlockStyle}" />
+                                    <TextBlock 
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        Background="White"
+                                        Text="{Binding Serialised}"></TextBlock>
+                                </Grid>
+                            </Border>
                         </Grid>
                     </Border>
                 </Expander>

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Newtonsoft.Json;
 
 namespace ORM_Individual.ViewModels.TableViewModels
 {
@@ -28,6 +29,14 @@ namespace ORM_Individual.ViewModels.TableViewModels
                 OnPropertyChanged();
             }
         }
+
+        private string _serialised;
+        public string Serialised
+        {
+            get { return _serialised; }
+            set { _serialised = value; }
+        }
+
         protected BaseTable_VM(IRepository<T> repository)
         {
             Repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -37,6 +46,8 @@ namespace ORM_Individual.ViewModels.TableViewModels
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
             DeleteRowsCommand = new RelayCommand(DeleteRows);
             UseIdQueryCommand = new RelayCommand(UserIdQuery);
+
+            Serialised = JsonConvert.SerializeObject(Source);
         }
         public void RowEditEnding(object parameter)
         {
@@ -55,8 +66,8 @@ namespace ORM_Individual.ViewModels.TableViewModels
                                 return;
                             }
                         }
-
-                       Repository.Add((T)entity);
+                        Repository.Add((T)entity);
+                        Serialised = JsonConvert.SerializeObject(Source);
                     }
                     catch (Exception ex) {
                         LoadSource();
