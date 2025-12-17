@@ -34,8 +34,12 @@ namespace ORM_Individual.ViewModels.TableViewModels
         public string Serialised
         {
             get { return _serialised; }
-            set { _serialised = value; }
+            set { _serialised = value;
+                OnPropertyChanged();
+            }
         }
+
+        private string temp {  get; set; }
 
         protected BaseTable_VM(IRepository<T> repository)
         {
@@ -46,8 +50,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
             RowEditEndingCommand = new RelayCommand(RowEditEnding);
             DeleteRowsCommand = new RelayCommand(DeleteRows);
             UseIdQueryCommand = new RelayCommand(UserIdQuery);
-
-            Serialised = JsonConvert.SerializeObject(Source);
+            UpdateSerString();
         }
         public void RowEditEnding(object parameter)
         {
@@ -67,11 +70,26 @@ namespace ORM_Individual.ViewModels.TableViewModels
                             }
                         }
                         Repository.Add((T)entity);
-                        Serialised = JsonConvert.SerializeObject(Source);
+                        UpdateSerString();
                     }
                     catch (Exception ex) {
                         LoadSource();
                     }
+                }
+            }
+        }
+        private void UpdateSerString()
+        {
+            Serialised = string.Empty;
+            temp = JsonConvert.SerializeObject(Source);
+            foreach (var str in temp.Split(',')) {
+                if (!(str[0] == '{' || str[1] == '{'))
+                {
+                    Serialised += ('\t' + str + "\n");
+                }
+                else
+                {
+                    Serialised += (str + "\n");
                 }
             }
         }

@@ -186,7 +186,7 @@
                                         Background="White"
                                         TextWrapping="Wrap"
                                         Text="{Binding Serialised}"
-                                        Width="550"
+                                        Width="auto"
                                         />
                                 </Grid>
                             </Border>

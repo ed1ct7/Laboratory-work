@@ -33,7 +33,6 @@ namespace Task2
             }
         }
 
-        // ===== HTTP + JSON =====
         private async Task<List<Country>> DeserializationAsync()
         {
             string url = "https://restcountries.com/v3.1/name/russia";
@@ -48,39 +47,31 @@ namespace Task2
             return JsonConvert.DeserializeObject<List<Country>>(json);
         }
 
-        // ===== Инициализация =====
         public async void Initialize()
         {
-            try
+            List<Country> countries = await DeserializationAsync();
+
+            if (countries == null || countries.Count == 0)
             {
-                List<Country> countries = await DeserializationAsync();
-
-                if (countries == null || countries.Count == 0)
-                {
-                    Data = "Данные не найдены";
-                    return;
-                }
-
-                Country russia = countries[0];
-
-                Data =
-                    $"Страна: {russia.name.common}\n" +
-                    $"Официальное название: {russia.name.official}\n" +
-                    $"Столица: {russia.capital[0]}\n" +
-                    $"Регион: {russia.region}\n" +
-                    $"Подрегион: {russia.subregion}\n" +
-                    $"Континент: {russia.continents[0]}\n" +
-                    $"Население: {russia.population}\n" +
-                    $"Площадь: {russia.area} км²\n" +
-                    $"Валюта: {russia.currencies.RUB.name} ({russia.currencies.RUB.symbol})\n" +
-                    $"Язык: {russia.languages.rus}\n" +
-                    $"Автодвижение: {russia.car.side}\n" +
-                    $"Член ООН: {(russia.unMember ? "Да" : "Нет")}\n";
+                Data = "Данные не найдены";
+                return;
             }
-            catch (Exception ex)
-            {
-                Data = $"Ошибка: {ex.Message}";
-            }
+
+            Country russia = countries[0];
+
+            Data =
+                $"Страна: {russia.name.common}\n" +
+                $"Официальное название: {russia.name.official}\n" +
+                $"Столица: {russia.capital[0]}\n" +
+                $"Регион: {russia.region}\n" +
+                $"Подрегион: {russia.subregion}\n" +
+                $"Континент: {russia.continents[0]}\n" +
+                $"Население: {russia.population}\n" +
+                $"Площадь: {russia.area} км²\n" +
+                $"Валюта: {russia.currencies.RUB.name} ({russia.currencies.RUB.symbol})\n" +
+                $"Язык: {russia.languages.rus}\n" +
+                $"Автодвижение: {russia.car.side}\n" +
+                $"Член ООН: {(russia.unMember ? "Да" : "Нет")}\n";
         }
     }
 }
