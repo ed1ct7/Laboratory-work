@@ -89,20 +89,18 @@ namespace Task2
                 Country russia = countries[0];
 
                 Data =
-                    $"Страна: {russia.name.common}\n" +
-                    $"Официальное название: {russia.name.official}\n" +
-                    $"Столица: {russia.capital[0]}\n" +
-                    $"Регион: {russia.region}\n" +
-                    $"Подрегион: {russia.subregion}\n" +
-                    $"Континент: {russia.continents[0]}\n" +
+                    $"Страна: {russia.name?.common ?? "нет данных"}\n" +
+                    $"Официальное название: {russia.name?.official ?? "нет данных"}\n" +
+                    $"Столица: {capital}\n" +
+                    $"Регион: {russia.region ?? "нет данных"}\n" +
+                    $"Подрегион: {russia.subregion ?? "нет данных"}\n" +
+                    $"Континент: {continent}\n" +
                     $"Население: {russia.population}\n" +
                     $"Площадь: {russia.area} км²\n" +
-                    $"Валюта: {russia.currencies.RUB.name} ({russia.currencies.RUB.symbol})\n" +
-                    $"Язык: {russia.languages.rus}\n" +
-                    $"Флаг: {russia.flags.png}\n" +
-                    $"Автодвижение: {russia.car.side}\n" +
-                    $"Член ООН: {(russia.unMember ? "Да" : "Нет")}\n" +
-                    $"Почтовый код: {russia.postalCode.format}";
+                    $"Валюта: {currencyName} ({currencySymbol})\n" +
+                    $"Язык: {language}\n" +
+                    $"Автодвижение: {carSide}\n" +
+                    $"Член ООН: {unMember}\n";
             }
             catch (Exception ex)
             {
