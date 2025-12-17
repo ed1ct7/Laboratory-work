@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using ORM_Individual.Interfaces;
+﻿using ORM_Individual.Interfaces;
 using ORM_Individual.Models.Database;
 using ORM_Individual.ViewModels.Commands;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using Newtonsoft.Json;
 
 namespace ORM_Individual.ViewModels.TableViewModels
