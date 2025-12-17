@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Microsoft.EntityFrameworkCore;
 using ORM_Individual.Models.Entities;
 
@@ -8,68 +6,49 @@ namespace ORM_Individual.Models.Database;
 
 public partial class DatabaseContext : DbContext
 {
-    public DatabaseContext()
-    {
-    }
-
+    public DatabaseContext(){}
     public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)
     {
     }
-
     static DatabaseContext context;
-
     public static DatabaseContext GetContext()
     {
         if (context == null) context = new DatabaseContext();
         return context;
     }
-
     public virtual DbSet<Component> Components { get; set; }
-
     public virtual DbSet<ComponentType> ComponentTypes { get; set; }
-
     public virtual DbSet<Customer> Customers { get; set; }
-
     public virtual DbSet<Employee> Employees { get; set; }
-
     public virtual DbSet<Order> Orders { get; set; }
-
     public virtual DbSet<Position> Positions { get; set; }
-
     public virtual DbSet<Service> Services { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (optionsBuilder.IsConfigured)
         {
             return;
         }
-
         var dbPath = GetDatabasePath();
         optionsBuilder.UseSqlite($"Data Source={dbPath}");
     }
-
     private static string GetDatabasePath()
     {
         var baseDirectory = AppContext.BaseDirectory;
         var projectRoot = FindProjectRoot(baseDirectory);
         var dbDirectory = projectRoot ?? baseDirectory;
         var path = Path.Combine(dbDirectory, "Database.db");
-
         var directory = Path.GetDirectoryName(path);
         if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
         {
             Directory.CreateDirectory(directory);
         }
-
         return path;
     }
-
     private static string? FindProjectRoot(string startDirectory)
     {
         var directoryInfo = new DirectoryInfo(startDirectory);
-
         while (directoryInfo != null)
         {
             var projectFile = Path.Combine(directoryInfo.FullName, "ORM Individual.csproj");
@@ -77,19 +56,15 @@ public partial class DatabaseContext : DbContext
             {
                 return directoryInfo.FullName;
             }
-
             directoryInfo = directoryInfo.Parent;
         }
-
         return null;
     }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Component>(entity =>
         {
             entity.ToTable("Component");
-
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("id");
@@ -109,7 +84,6 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Type).WithMany(p => p.Components).HasForeignKey(d => d.TypeId);
         });
-
         modelBuilder.Entity<ComponentType>(entity =>
         {
             entity.ToTable("ComponentType");
@@ -120,11 +94,9 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Name).HasColumnName("name");
         });
-
         modelBuilder.Entity<Customer>(entity =>
         {
             entity.ToTable("Customer");
-
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("id");
@@ -132,11 +104,9 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.FullName).HasColumnName("full_name");
             entity.Property(e => e.Phone).HasColumnName("phone");
         });
-
         modelBuilder.Entity<Employee>(entity =>
         {
             entity.ToTable("Employee");
-
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("id");
@@ -151,10 +121,8 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.PassportData).HasColumnName("passport_data");
             entity.Property(e => e.Phone).HasColumnName("phone");
             entity.Property(e => e.PositionId).HasColumnName("position_id");
-
             entity.HasOne(d => d.Position).WithMany(p => p.Employees).HasForeignKey(d => d.PositionId);
         });
-
         modelBuilder.Entity<Order>(entity =>
         {
             entity.ToTable("Order");
