@@ -109,6 +109,7 @@ namespace ORM_Individual.ViewModels.TableViewModels
                         if (item is IEntity entity)
                         {
                             Repository.Remove(entity.Id);
+                            UpdateSerString();
                         }
                     }
                 }
