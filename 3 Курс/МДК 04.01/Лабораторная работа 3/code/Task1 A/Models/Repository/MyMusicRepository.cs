@@ -1,14 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Task1.Models.Entity;
 
 namespace Task1.Models.Repository
 {
-    public class MyMusicRepository : IDisposable
+    public class MyMusicRepository
     {
         private bool _disposed = false;
         private MyMusic _music;
@@ -22,23 +18,5 @@ namespace Task1.Models.Repository
         {
             return JsonConvert.SerializeObject(_music);
         }
-
-        #region Dispose
-        public void Dispose()
-        {
-            Dispose(true);
-            // GC.SuppressFinalize(this);
-        }
-        public void Dispose(bool isDisposing)
-        {
-           if (!_disposed)
-            {
-                if (isDisposing)
-                {
-                    //NNN
-                }
-            }
-        }
-        #endregion
     }
 }
