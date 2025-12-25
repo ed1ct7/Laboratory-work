@@ -14,12 +14,5 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="0" ItemsSource="{Binding AuthsData}"></DataGrid>
-        <!--<StackPanel Grid.Row="1" Orientation="Horizontal">
-            <TextBlock Text="Название"/>
-            <TextBox Text="{Binding AuthId}" Width="75"/>
-            <TextBlock Text="Id книги"/>
-            <TextBox Text="{Binding BooksId}" Width="75"/>
-            <Button Command="{Binding AddDataCommand}" Content="Добавить"/>
-        </StackPanel>-->
     </Grid>
 </Page>
