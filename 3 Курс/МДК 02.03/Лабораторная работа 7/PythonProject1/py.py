@@ -11,7 +11,7 @@ try:
 
     # 2) Выбор X и Y (вариант 6 -> Y6)
     X = df["X"].values
-    Y = df["Y3"].values
+    Y = df["Y6"].values
 
     # 3) reshape для X
     X = X.reshape((-1, 1))
