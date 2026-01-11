@@ -1,21 +1,51 @@
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
-        int a = 100; // рублей
-        int b = 98;  // копеек
+public static void main(String[] args) {
+    int a = 100; // рублей
+    int b = 98;  // копеек
 
-        Scanner sc = new Scanner(System.in);
+    int testChecker = 0;
 
-        System.out.println("Продукт стоит 100 рублей 98 копеек");
+    Scanner sc = new Scanner(System.in);
+
+    System.out.print("Продукт стоит 100 рублей 98 копеек\n");
+    System.out.print("Введите количество рублей: ");
+    int c = sc.nextInt();
+    while (c < 0){
+        System.out.print("Было введено недопустимое количество рублей: \n");
         System.out.print("Введите количество рублей: ");
-        int c = sc.nextInt();     // <-- прочитали рубли
-
-        System.out.print("Введите количество копеек: ");
-        int d = sc.nextInt();     // <-- прочитали копейки
-
-        System.out.println("Вы ввели: " + c + " рублей " + d + " копеек");
-
-        sc.close();
+        c = sc.nextInt();
     }
+
+    System.out.print("Введите количество копеек: ");
+    int d = sc.nextInt();
+    while(d > 99 || d < 0){
+        System.out.print("Было введено недопустимое количество копеейк: \n");
+        System.out.print("Введите количество копеек: ");
+        d = sc.nextInt();
+    }
+
+    System.out.println("Вы ввели: " + c + " рублей " + d + " копеек\n");
+
+
+    if(c < a || (c == a && d < b)){
+        testChecker = 0;
+        System.out.print("Введена не достаточная сумма\n");
+    }else if(c == a && d == b){
+        testChecker = 1;
+        System.out.print("Сдачи нет\n");
+    }else{
+        c -= a;
+        if(d >= b){
+            d -= b;
+        } else {
+            int t = 100 + d - b;
+            d = t;
+            c--;
+        }
+        testChecker = 2;
+        System.out.printf("Сдача: %d руб., %d коп.", c, d);
+    }
+
+    sc.close();
 }
