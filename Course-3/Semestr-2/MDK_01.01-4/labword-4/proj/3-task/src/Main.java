@@ -4,7 +4,7 @@
 
 import java.util.Scanner;
 
-public static void main(String[] args) {
+void main(String[] args) {
     int a = 100; // рублей
     int b = 98;  // копеек
 
