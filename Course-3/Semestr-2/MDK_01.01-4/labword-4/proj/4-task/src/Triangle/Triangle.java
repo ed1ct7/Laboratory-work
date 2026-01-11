@@ -33,8 +33,6 @@ public class Triangle {
     }
 
     public boolean isIsosceles() {
-        // В C# сравнение было через double.Epsilon (почти всегда false для неравных чисел).
-        // Для сохранения смысла лучше использовать небольшой допуск:
         final double eps = 1e-9;
         double a = sides.getA(), b = sides.getB(), c = sides.getC();
         return Math.abs(a - b) < eps || Math.abs(a - c) < eps || Math.abs(b - c) < eps;
