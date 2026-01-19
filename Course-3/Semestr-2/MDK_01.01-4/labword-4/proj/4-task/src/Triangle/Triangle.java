@@ -20,7 +20,7 @@ public class Triangle {
     }
 
     public void setSides(Parameters sides) {
-        this.sides = Objects.requireNonNull(sides);
+        this.sides = sides;
         calculateAngles();
     }
 

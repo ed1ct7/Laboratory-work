@@ -155,9 +155,7 @@ public class Matrix implements Comparable<Matrix> {
     public double getDeterminant() {
         if (size == 1) return getElement(0, 0);
         if (size == 2) return getElement(0, 0) * getElement(1, 1) - getElement(0, 1) * getElement(1, 0);
-
         if (size == 3) {
-            // Логика сохранена как в C# (вариант “диагоналей”)
             double deter = 0.0;
             double temp = 1.0;
 
@@ -192,7 +190,6 @@ public class Matrix implements Comparable<Matrix> {
             return deter;
         }
 
-        // Для n > 3 — как в C#: сумма по перестановкам (O(n!))
         double deter = 0.0;
         int[] perm = new int[size];
         int sign = 1;
@@ -208,7 +205,7 @@ public class Matrix implements Comparable<Matrix> {
 
             int newSign = nextPermutationInducedSignFlip(perm);
             if (newSign == 0) break;
-            sign *= newSign; // всегда -1 на каждом шаге, как в вашем C#
+            sign *= newSign;
         }
 
         return deter;
