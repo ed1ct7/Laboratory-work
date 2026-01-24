@@ -20,7 +20,9 @@ package task4.Bank;
 import task4.Interfaces.IATMmachine;
 
 public class ATMmachineMyBank implements IATMmachine {
+    public ATMmachineMyBank(){
 
+    }
     @Override
     public float checkBalance(){
         return 0;

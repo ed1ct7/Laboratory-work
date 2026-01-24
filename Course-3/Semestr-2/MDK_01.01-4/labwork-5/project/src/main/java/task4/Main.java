@@ -1,3 +1,5 @@
+import task4.DBManager;
+
 import java.util.Scanner;
 
 void main() {
@@ -7,12 +9,18 @@ void main() {
 public void Menu(){
     int choice = 0;
     Scanner sc = new Scanner("abvsdf");
-    while(true){
-        choice = sc.nextInt();
-        switch (choice) {
-            case 0:
-
-        }
-    }
+    DBManager.getInstance();
+//    while(true){
+//        choice = sc.nextInt();
+//        switch (choice) {
+//            case 0:
+//
+//                break;
+//
+//            case 1:
+//
+//                break;
+//        }
+//    }
 }
 
